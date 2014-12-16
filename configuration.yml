@@ -1,0 +1,7 @@
+---
+packages:
+  app-emulation/docker:
+    kw:
+      +: ["~*"]
+    use:
+      +: ["btrfs","doc"]
