@@ -6,4 +6,4 @@
 
 - name: Setup image for qemu
   shell: FILES_DIR={{ playbook_dir }}/files {{ playbook_dir }}/files/image_setup.sh
-  when: not prepared
+  when: prepared|failed
