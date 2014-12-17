@@ -1,4 +1,11 @@
 ---
+- name: Create directories
+  file: >
+    state=directory
+    path={{ item }}
+  with_items:
+    - "{{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_prepare{{ embedux_tmp }}"
+
 - name: Synchronize files
   synchronize: >
     src={{ playbook_dir }}/files/qemu_prepare/ dest={{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_prepare{{ embedux_tmp }}/files
