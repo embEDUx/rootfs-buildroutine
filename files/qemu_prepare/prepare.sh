@@ -2,7 +2,8 @@
 ## This code runs inside the rootfs
 
 # fstab
-pushd basename $0
+DIR=$(dirname ${0})
+pushd ${DIR}
 cp fstab /etc/fstab
 
 # make.conf defaults
@@ -40,3 +41,5 @@ done
 
 echo FEATURES=\"\${FEATURES} distcc\" >> /etc/portage/make.conf
 echo "10.0.2.2,lzo,cpp" > /etc/distcc/hosts
+
+popd
