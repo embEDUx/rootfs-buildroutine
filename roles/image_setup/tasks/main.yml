@@ -7,10 +7,5 @@
 - include: image_prepare.yml
   when: prepared|failed
 
-- name: copy qemu_prepare files
-  synchronize: >
-    src={{ playbook_dir }}/files/qemu_prepare/ dest={{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_prepare/tmp/files/
-    archive=no delete=yes checksum=yes recursive=yes
-
 - name: Mark as set up
   shell: touch {{ embedux_tmp }}/image_setup/.done
