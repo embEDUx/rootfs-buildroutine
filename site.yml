@@ -1,9 +1,9 @@
 ---
-hosts: localhost
+- hosts: localhost
   roles:
     - image_setup
     - qemu_prepare
 
-hosts:
+- hosts: qemu
   roles:
     - qemu_run
