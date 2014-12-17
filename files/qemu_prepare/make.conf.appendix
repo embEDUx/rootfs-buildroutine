@@ -1,0 +1,5 @@
+
+NUMCPUS=32
+MAKEOPTS="-l${NUMCPUS} -j${NUMCPUS}"
+EMERGE_DEFAULT_OPTS="--jobs=1 --load-average=${NUMCPUS} -q"
+FEATURES="${FEATURES} parallel-fetch"
