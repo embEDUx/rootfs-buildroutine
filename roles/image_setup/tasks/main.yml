@@ -6,6 +6,3 @@
 
 - include: image_prepare.yml
   when: prepared|failed
-
-- name: Mark as set up
-  shell: touch {{ embedux_tmp }}/image_setup/.done

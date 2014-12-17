@@ -1,24 +1,8 @@
 ---
-- name: Create directories
-  file: >
-    state=directory
-    path={{ item }}
-  with_items:
-    - "{{ embedux_tmp }}/qemu_prepare/"
-    - "{{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_prepare{{ embedux_tmp }}"
+- name: Check if the image has already been set up
+  shell: test -e {{ embedux_tmp }}/qemu_prepare/.done
+  register: prepared
+  ignore_errors: True
 
-- name: Synchronize files
-  synchronize: >
-    src={{ playbook_dir }}/files/qemu_prepare/ dest={{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_prepare{{ embedux_tmp }}/files
-    archive=no delete=yes checksum=yes recursive=yes
-
-#- name: Copy qemu kernel
-#  synchronize: >
-#    src={{ playbook_dir }}/files/zImage dest={{ embedux_tmp }}/
-#    archive=no delete=yes checksum=yes recursive=yes
-
-- name: Run prepare.sh inside rootfs
-  shell: sudo proot -q /usr/bin/qemu-arm -S {{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_prepare/ {{ embedux_tmp}}/files/
-
-- name: Mark as prepared
-  shell: touch {{ embedux_tmp }}/qemu_prepare/.done
+- include: qemu_prepare.yml
+  when: prepared|failed
