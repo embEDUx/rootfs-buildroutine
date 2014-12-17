@@ -10,7 +10,7 @@
 
 - name: copy qemu-prepare files
   synchronize: >
-    src={{ playbook_dir }}/files/qemu-prepare/*** dest=/var/tmp/embedux/rootfs.btrfs.mnt/qemu-prepare/tmp/files/
+    src={{ playbook_dir }}/files/qemu-prepare/ dest=/var/tmp/embedux/rootfs.btrfs.mnt/qemu-prepare/tmp/files/
     archive=no delete=yes checksum=yes recursive=yes
   tags:
     - sync
