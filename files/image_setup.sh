@@ -20,6 +20,7 @@ sudo btrfs subvolume snapshot /var/tmp/embedux/rootfs.btrfs.mnt/stage3 /var/tmp/
 
 # SSH
 mkdir /var/tmp/embedux/image_setup/ssh_creds -p
+rm -Rf /var/tmp/embedux/image_setup/ssh_creds/*
 ssh-keygen -N "" -f /var/tmp/embedux/image_setup/ssh_creds/qemu.id
 cp /var/tmp/embedux/image_setup/ssh_creds/qemu.id.pub ${FILES_DIR}/qemu-prepare/
 
