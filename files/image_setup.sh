@@ -6,7 +6,7 @@ qemu-img create -f raw /var/tmp/embedux/rootfs.btrfs.img 8G
 mkfs.btrfs /var/tmp/embedux/rootfs.btrfs.img
 mkdir /var/tmp/embedux/rootfs.btrfs.mnt -p
 sudo mount /var/tmp/embedux/rootfs.btrfs.img /var/tmp/embedux/rootfs.btrfs.mnt 
-IMAGE=$(sudo docker images -q embedux/stage3-{{ target_arch }} | tail -n1)
+IMAGE=$(sudo docker images -q embedux/stage3-${TARGET_ARCH} | tail -n1)
 sudo btrfs subvolume create /var/tmp/embedux/rootfs.btrfs.mnt/stage3
 sudo docker save $IMAGE | \
   tar --to-stdout -xv --strip-components=1 -f - --wildcards */layer.tar | \
