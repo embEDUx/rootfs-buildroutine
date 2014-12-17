@@ -28,6 +28,10 @@ cat qemu.id.pub >> /root/.ssh/authorized_keys
 /sbin/rc-update add sshd default
 
 # Dist-CC
+#emerge --autounmask-write=y -u sys-devel/distcc 
+#etc-update --automode -5 
+emerge sys-devel/distcc
+
 WRAPPER_BASE=$(ls -1 /usr/lib/distcc/bin/ | grep -o ".*-" | uniq)
 cat << EOF > /usr/lib/distcc/bin/${WRAPPER_BASE}wrapper
 #!/bin/bash
