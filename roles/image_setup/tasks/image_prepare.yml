@@ -23,7 +23,7 @@
   shell: sudo btrfs subvolume create {{ embedux_tmp }}/rootfs.btrfs.mnt/stage3
 
 - name: Extract the contents of the stage3 container
-  shell: sudo docker save $IMAGE | tar --to-stdout -x --strip-components=1 -f - --wildcards */layer.tar | sudo tar -xp -f - -C {{ embedux_tmp }}/rootfs.btrfs.mnt/stage3/
+  shell: sudo docker save {{ stage3.stdout }} | tar --to-stdout -x --strip-components=1 -f - --wildcards */layer.tar | sudo tar -xp -f - -C {{ embedux_tmp }}/rootfs.btrfs.mnt/stage3/
 
 - name: Create a btrfs snapshot for the prepare step
   shell: sudo btrfs subvolume snapshot {{ embedux_tmp }}/rootfs.btrfs.mnt/stage3 {{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_prepare/
