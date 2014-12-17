@@ -4,8 +4,7 @@
   register: prepared
   ignore_errors: True
 
-- name: Setup image for qemu
-  shell: FILES_DIR={{ playbook_dir }}/files {{ playbook_dir }}/files/image_setup.sh
+- include: image_prepare.yml
   when: prepared|failed
 
 - name: copy qemu_prepare files
