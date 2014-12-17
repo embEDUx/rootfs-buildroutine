@@ -1,0 +1,7 @@
+---
+hosts: localhost
+  - role: image_setup
+  - role: qemu_prepare
+
+hosts:
+  - role: qemu_run
