@@ -4,6 +4,7 @@
     state=directory
     path={{ item }}
   with_items:
+    - "{{ embedux_tmp }}/qemu_prepare/"
     - "{{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_prepare{{ embedux_tmp }}"
 
 - name: Synchronize files
@@ -18,3 +19,6 @@
 
 - name: Run prepare.sh inside rootfs
   shell: sudo proot -q /usr/bin/qemu-arm -S {{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_prepare/ {{ embedux_tmp}}/files/
+
+- name: Mark as prepared
+  shell: touch {{ embedux_tmp }}/qemu_prepare/.done
