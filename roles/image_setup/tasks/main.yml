@@ -1,6 +1,6 @@
 ---
 - name: Check if it has been prepared
-  shell: [ -e /var/tmp/embedux/rootfs.btrfs.mnt/qemu-prepare/.prepared ]
+  shell: test -e /var/tmp/embedux/rootfs.btrfs.mnt/qemu-prepare/.prepared
   register: prepared
   ignore_errors: True
 
