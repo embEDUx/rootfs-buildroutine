@@ -29,4 +29,4 @@
   shell: sudo btrfs subvolume snapshot {{ embedux_tmp }}/rootfs.btrfs.mnt/stage3 {{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_prepare/
 
 - name: Create and copy the SSH key
-  shell: rm -Rf {{ embedux_tmp }}/image_setup/ssh_creds/; ssh-keygen -N "" -f {{ embedux_tmp }}/image_setup/ssh_creds/qemu.id && cp {{ embedux_tmp }}/image_setup/ssh_creds/qemu.id.pub ${FILES_DIR}/qemu_prepare/
+  shell: rm -Rf {{ embedux_tmp }}/image_setup/ssh_creds/; ssh-keygen -N "" -f {{ embedux_tmp }}/image_setup/ssh_creds/qemu.id && cp {{ embedux_tmp }}/image_setup/ssh_creds/qemu.id.pub {{ files_dir }}/qemu_prepare/
