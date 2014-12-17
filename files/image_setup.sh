@@ -9,8 +9,8 @@ sudo mount /var/tmp/embedux/rootfs.btrfs.img /var/tmp/embedux/rootfs.btrfs.mnt
 IMAGE=$(sudo docker images -q embedux/stage3-${TARGET_ARCH} | tail -n1)
 sudo btrfs subvolume create /var/tmp/embedux/rootfs.btrfs.mnt/stage3
 sudo docker save $IMAGE | \
-  tar --to-stdout -xv --strip-components=1 -f - --wildcards */layer.tar | \
-  sudo tar -xpv -f - -C /var/tmp/embedux/rootfs.btrfs.mnt/stage3/
+  tar --to-stdout -x --strip-components=1 -f - --wildcards */layer.tar | \
+  sudo tar -xp -f - -C /var/tmp/embedux/rootfs.btrfs.mnt/stage3/
 
 # Create a snapshot
 if [ -d  /var/tmp/embedux/rootfs.btrfs.mnt/qemu-prepare ]; then
