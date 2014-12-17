@@ -1,10 +1,13 @@
 ---
 - name: Synchronize files
   synchronize: >
-    src={{ playbook_dir }}/files/qemu_prepare/ dest={{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_prepare/tmp/files/
+    src={{ playbook_dir }}/files/qemu_prepare/ dest={{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_prepare/{{ embedux_tmp}}/files
     archive=no delete=yes checksum=yes recursive=yes
 
 #- name: Copy qemu kernel
 #  synchronize: >
 #    src={{ playbook_dir }}/files/zImage dest={{ embedux_tmp }}/
 #    archive=no delete=yes checksum=yes recursive=yes
+#
+- name: Run prepare.sh inside rootfs
+  shell: sudo proot -q /usr/bin/qemu-arm -S {{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_prepare/ {{ embedux_tmp}}/files/

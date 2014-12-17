@@ -2,10 +2,11 @@
 ## This code runs inside the rootfs
 
 # fstab
-cp fstab /var/tmp/embedux/rootfs/etc/fstab
+pushd basename $0
+cp fstab /etc/fstab
 
 # make.conf defaults
-cat make.conf.appendix >> /var/tmp/embedux/rootfs/etc/portage/make.conf
+cat make.conf.appendix >> /etc/portage/make.conf
 echo FEATURES=\"\${FEATURES} distcc\" >> /etc/portage/make.conf
 
 # Localization
