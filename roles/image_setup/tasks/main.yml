@@ -1,6 +1,6 @@
 ---
-- name: Check if it has been prepared
-  shell: test -e /var/tmp/embedux/rootfs.btrfs.mnt/qemu-prepare/.prepared
+- name: Check if the image has already been set up
+  shell: test -e {{ embedux_tmp }}/image_setup/.done
   register: prepared
   ignore_errors: True
 
@@ -8,9 +8,10 @@
   shell: FILES_DIR={{ playbook_dir }}/files {{ playbook_dir }}/files/image_setup.sh
   when: prepared|failed
 
-- name: copy qemu-prepare files
+- name: copy qemu_prepare files
   synchronize: >
-    src={{ playbook_dir }}/files/qemu-prepare/ dest=/var/tmp/embedux/rootfs.btrfs.mnt/qemu-prepare/tmp/files/
+    src={{ playbook_dir }}/files/qemu_prepare/ dest={{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_prepare/tmp/files/
     archive=no delete=yes checksum=yes recursive=yes
-  tags:
-    - sync
+
+- name: Mark as set up
+  shell: touch {{ embedux_tmp }}/image_setup/.done

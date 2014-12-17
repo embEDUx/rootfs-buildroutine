@@ -1,0 +1,32 @@
+---
+- name: Find target stage3 image
+  shell: sudo docker images -q embedux/stage3-${TARGET_ARCH} | tail -n1
+  register: stage3_image
+
+- name: Create rootfs image file
+  shell: qemu-img create -f raw {{ embedux_tmp }}/rootfs.btrfs.img 8G
+
+- name: Format image file with btrfs
+  shell: mkfs.btrfs {{ embedux_tmp }}/rootfs.btrfs.img
+
+- name: Create directories
+  file: >
+    state=directory
+    path={{ item }}
+  with_items:
+    - "{{ embedux_tmp }}/rootfs.btrfs.mnt"
+    - "{{ embedux_tmp }}/image_setup/ssh_creds"
+- name: Mount rootfs image
+  shell: sudo mount {{ embedux_tmp }}/rootfs.btrfs.img {{ embedux_tmp }}/rootfs.btrfs.mnt 
+
+- name: Create btrfs subvolume for stage3 
+  shell: sudo btrfs subvolume create {{ embedux_tmp }}/rootfs.btrfs.mnt/stage3
+
+- name: Extract the contents of the stage3 container
+  shell: sudo docker save $IMAGE | tar --to-stdout -x --strip-components=1 -f - --wildcards */layer.tar | sudo tar -xp -f - -C {{ embedux_tmp }}/rootfs.btrfs.mnt/stage3/
+
+- name: Create a btrfs snapshot for the prepare step
+  shell: sudo btrfs subvolume snapshot {{ embedux_tmp }}/rootfs.btrfs.mnt/stage3 {{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_prepare/
+
+- name: Create and copy the SSH key
+  shell: rm -Rf {{ embedux_tmp }}/image_setup/ssh_creds/; ssh-keygen -N "" -f {{ embedux_tmp }}/image_setup/ssh_creds/qemu.id && cp {{ embedux_tmp }}/image_setup/ssh_creds/qemu.id.pub ${FILES_DIR}/qemu_prepare/
