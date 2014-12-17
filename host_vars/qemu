@@ -2,4 +2,4 @@
 ansible_connection: ssh 
 ansible_ssh_host: 10.0.2.15
 ansible_ssh_user: root
-ansible_ssh_private_key_file: {{ playbook_dir }}/files/
+ansible_ssh_private_key_file: /var/tmp/embedux/image_setup/ssh_creds/qemu.id
