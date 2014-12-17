@@ -30,6 +30,7 @@ cat qemu.id.pub >> /root/.ssh/authorized_keys
 # Dist-CC
 #emerge --autounmask-write=y -u sys-devel/distcc 
 #etc-update --automode -5 
+emerge-webrsync
 emerge sys-devel/distcc
 
 WRAPPER_BASE=$(ls -1 /usr/lib/distcc/bin/ | grep -o ".*-" | uniq)
