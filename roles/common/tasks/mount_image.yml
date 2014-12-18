@@ -8,6 +8,6 @@
   mount: >
     fstab={{ playbook_dir }}/files/image_fstab
     src={{ embedux_tmp }}/rootfs.btrfs.img
-    name={{ embedux_tmp }}/rootfs.btrfs.mnt 
+    name={{ embedux_tmp }}/rootfs.btrfs.img
     fstype=none
     state=mounted
