@@ -5,15 +5,17 @@
   ignore_errors: True
 
 - name: Check if qemu is still running
-  shell: kill {{ qemu_pid.stdout }}
+  shell: kill {{ qemu_pid.stdout }}; rm {{ qemu_pidfile }}
   when: qemu_pid
   ignore_errors: True
 
+- name: Check if the image is mounted
+  shell: mount | grep {{ embedux_tmp }}/rootfs.btrfs.img
+  register: mounted
+
 - name: Make sure the image is not mounted
   shell: sudo umount {{ embedux_tmp }}/rootfs.btrfs.img
-  register: umount
-  failed_when: umount.rc == 0
-  ignore_errors: True
+  when: mounted != ""
 
 - name: Run emulator in background
   command: "IMAGE={{ qemu_imagefile }} PIDFILE={{ qemu_pidfile }} KERNEL_DIR={{ qemu_kernel_dir }} \ 
