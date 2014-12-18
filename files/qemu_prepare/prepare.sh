@@ -29,23 +29,21 @@ chmod 600 /root/.ssh/authorized_keys
 /sbin/rc-update add sshd default
 
 # Dist-CC
-#emerge --autounmask-write=y -u sys-devel/distcc 
-#etc-update --automode -5 
-emerge-webrsync
-emerge sys-devel/distcc
-
-WRAPPER_BASE=$(ls -1 /usr/lib/distcc/bin/ | grep -o ".*-" | uniq)
-cat << EOF > /usr/lib/distcc/bin/${WRAPPER_BASE}wrapper
-#!/bin/bash
-exec /usr/lib/distcc/bin/${WRAPPER_BASE}g\${0:\$[-2]} "\$@"
-EOF
-chmod +x /usr/lib/distcc/bin/${WRAPPER_BASE}wrapper
-rm /usr/lib/distcc/bin/{c++,g++,gcc,cc}
-for cmd in c++ g++ gcc cc; do
-    ln -s ${WRAPPER_BASE}wrapper /usr/lib/distcc/bin/${cmd}
-done
-
-echo FEATURES=\"\${FEATURES} distcc\" >> /etc/portage/make.conf
-echo "10.0.2.2,lzo,cpp" > /etc/distcc/hosts
+#emerge-webrsync
+#emerge sys-devel/distcc
+#
+#WRAPPER_BASE=$(ls -1 /usr/lib/distcc/bin/ | grep -o ".*-" | uniq)
+#cat << EOF > /usr/lib/distcc/bin/${WRAPPER_BASE}wrapper
+##!/bin/bash
+#exec /usr/lib/distcc/bin/${WRAPPER_BASE}g\${0:\$[-2]} "\$@"
+#EOF
+#chmod +x /usr/lib/distcc/bin/${WRAPPER_BASE}wrapper
+#rm /usr/lib/distcc/bin/{c++,g++,gcc,cc}
+#for cmd in c++ g++ gcc cc; do
+#    ln -s ${WRAPPER_BASE}wrapper /usr/lib/distcc/bin/${cmd}
+#done
+#
+#echo FEATURES=\"\${FEATURES} distcc\" >> /etc/portage/make.conf
+#echo "10.0.2.2,lzo,cpp" > /etc/distcc/hosts
 
 popd
