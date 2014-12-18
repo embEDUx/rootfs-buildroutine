@@ -4,7 +4,7 @@
   register: prepared
   ignore_errors: True
 
-- include: image_prepare.yml
+- include: image_setup.yml
   when: prepared|failed
 
 - include: "{{ playbook_dir }}/roles/common/tasks/mount_image.yml"
