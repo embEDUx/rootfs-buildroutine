@@ -10,7 +10,7 @@
   ignore_errors: True
 
 - name: Run emulator in background
-  shell: "IMAGE={{ qemu_imagefile }} PIDFILE={{ qemu_pidfile }} {{ embedux_tmp }}/files/qemu_run.sh"
+  command: "IMAGE={{ qemu_imagefile }} PIDFILE={{ qemu_pidfile }} {{ playbook_dir }}/qemu_run/qemu_run.sh"
   
 - name: Wait for the VM to boot
-  command: "{{ embedux_tmp }}/files/wait_for_vm.py"
+  command: "{{ playbook_dir }}/qemu_run/wait_for_vm.py"
