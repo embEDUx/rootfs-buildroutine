@@ -6,6 +6,3 @@
 
 - include: image_setup.yml
   when: prepared|failed
-
-- include: "{{ playbook_dir }}/roles/common/tasks/mount_image.yml"
-  when: prepared|changed

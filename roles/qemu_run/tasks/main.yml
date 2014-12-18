@@ -1,29 +1,9 @@
 ---
-- name: Check for PID file
-  shell: cat {{ qemu_pidfile }}
-  register: qemu_pid
-  ignore_errors: True
-
 - name: Check if the VM is reachable
   shell: "true"
   register: reachable
   delegate_to: qemu
 
-- name: Kill the qemu process and clean up the pidfile
-  shell: kill -9 {{ qemu_pid.stdout }}; rm {{ qemu_pidfile }}
-  when: qemu_pid and reachable|failed
-
-- name: Check if the image is mounted
-  shell: mount | grep {{ embedux_tmp }}/rootfs.btrfs.img
-  register: mounted
-
-- name: Make sure the image is not mounted
-  shell: sudo umount {{ embedux_tmp }}/rootfs.btrfs.img
-  when: mounted != ""
-
-- name: Run emulator in background
-  shell: "IMAGE={{ qemu_imagefile }} PIDFILE={{ qemu_pidfile }} KERNEL_DIR={{ qemu_kernel_dir }} \ 
-          {{ playbook_dir }}/roles/qemu_run/files/qemu_run.sh"
+- include: qemu_run.yml
+  when: reachable|failed
   
-- name: Wait for the VM to boot
-  shell: "{{ playbook_dir }}/roles/qemu_run/files/wait_for_vm.py"
