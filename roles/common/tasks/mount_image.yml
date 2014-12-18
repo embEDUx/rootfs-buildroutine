@@ -5,9 +5,9 @@
     dest={{ playbook_dir}}/files/image_fstab
 
 - name: Mount rootfs image
-  mount: >
-    fstab={{ playbook_dir }}/files/image_fstab
-    src={{ embedux_tmp }}/rootfs.btrfs.img
-    name={{ embedux_tmp }}/rootfs.btrfs.img
-    fstype=none
-    state=mounted
+  mount:
+    fstab: "{{ playbook_dir }}/files/image_fstab"
+    src: "{{ embedux_tmp }}/rootfs.btrfs.img"
+    name: " embedux_tmp }}/rootfs.btrfs.img"
+    fstype: none
+    state: mounted
