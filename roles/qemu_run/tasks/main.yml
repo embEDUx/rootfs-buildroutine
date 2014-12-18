@@ -10,7 +10,8 @@
   ignore_errors: True
 
 - name: Run emulator in background
-  command: "IMAGE={{ qemu_imagefile }} PIDFILE={{ qemu_pidfile }} {{ playbook_dir }}/roles/qemu_run/files/qemu_run.sh"
+  command: "IMAGE={{ qemu_imagefile }} PIDFILE={{ qemu_pidfile }} KERNEL={{ qemu_kernel }} \ 
+            {{ playbook_dir }}/roles/qemu_run/files/qemu_run.sh"
   
 - name: Wait for the VM to boot
   command: "{{ playbook_dir }}/roles/qemu_run/files/wait_for_vm.py"

@@ -26,7 +26,8 @@
   unarchive: >
     copy=no
     src={{ playbook_dir }}/files/linux.tar
-    dest={{ playbook_dir }}/files/
+    dest={{ qemu_kernel }}
+    dest={{ embedux_tmp }}/
     
 - name: Synchronize files
   synchronize: >

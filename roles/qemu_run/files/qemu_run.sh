@@ -15,15 +15,12 @@
 #  -fsdev local,id=root,path=/var/tmp/embedux/rootfs/,security_model=mapped-file \
 #  -device virtio-9p-device,fsdev=root,mount_tag=/dev/root
 
-PIDFILE=${EMBEDUX_TMP}/qemu.pid
-IMAGE=${EMBEDUX_TMP}/rootfs.btrfs.img
-
 QEMU_AUDIO_DRV=none qemu-system-arm \
   -M virt \
   -m 3072 \
   -daemonize \
   -pidfile ${PIDFILE} \
-  -kernel zImage \
+  -kernel ${KERNEL} \
   -append "root=/dev/vda rw rootflags=subvol=qemu_prepare console=ttyAMA0" \
   -net user \
   -netdev user,id=vnet0 \
