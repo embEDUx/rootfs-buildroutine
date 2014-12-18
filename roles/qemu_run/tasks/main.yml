@@ -9,6 +9,12 @@
   when: qemu_pid
   ignore_errors: True
 
+- name: Make sure the image is not mounted
+  shell: sudo umount {{ embedux_tmpdir }}/rootfs.btrfs.img
+  register: umount
+  failed_when: umount.rc == 0
+  ignore_errors: True
+
 - name: Run emulator in background
   command: "IMAGE={{ qemu_imagefile }} PIDFILE={{ qemu_pidfile }} KERNEL_DIR={{ qemu_kernel_dir }} \ 
             {{ playbook_dir }}/roles/qemu_run/files/qemu_run.sh"
