@@ -20,6 +20,8 @@
   mount: >
     src={{ embedux_tmp }}/rootfs.btrfs.img
     name={{ embedux_tmp }}/rootfs.btrfs.mnt 
+    fstype=bind
+    state=mounted
 
 - name: Create btrfs subvolume for stage3 
   shell: sudo btrfs subvolume create {{ embedux_tmp }}/rootfs.btrfs.mnt/stage3

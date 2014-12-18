@@ -7,8 +7,5 @@
 - include: image_prepare.yml
   when: prepared|failed
 
-- name: Mount rootfs image
-  mount: >
-    src={{ embedux_tmp }}/rootfs.btrfs.img
-    name={{ embedux_tmp }}/rootfs.btrfs.mnt 
+- include: "{{ playbook_dir }}/roles/common/tasks/mount_image.yml"
   when: prepared|success

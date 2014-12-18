@@ -1,0 +1,7 @@
+---
+- name: Mount rootfs image
+  mount: >
+    src={{ embedux_tmp }}/rootfs.btrfs.img
+    name={{ embedux_tmp }}/rootfs.btrfs.mnt 
+    fstype=bind
+    state=mounted
