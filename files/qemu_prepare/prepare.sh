@@ -29,6 +29,11 @@ chmod 600 /root/.ssh/authorized_keys
 /sbin/rc-update add sshd default
 cp send_signal_from_vm.py /etc/local.d/send_signal_from_vm.py.start
 
+# Kernel sources (needed by some packages to build properly)
+tar -xa -C / -f /var/tmp/embedux/linux-rootfs-addon.tar
+ln -sf /usr/src/linux-* /usr/src/linux
+cp linux.config /usr/src/linux
+
 # Dist-CC
 #emerge-webrsync
 #emerge sys-devel/distcc

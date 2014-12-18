@@ -1,0 +1,5 @@
+---
+downloads:
+  linux.tar: http://moe:8010/linux/qemu-virt/3.18.0_qemu-virt_20141218162628_7c0a201_linux.tar.gz
+  qemu_prepare/linux.config: http://moe:8010/linux/qemu-virt/3.18.0_qemu-virt_20141218162628_7c0a201_.config
+  qemu_prepare/linux-rootfs-addon.tar: http://moe:8010/linux/qemu-virt/3.18.0_qemu-virt_20141218162628_7c0a201_root.tar.bz2
