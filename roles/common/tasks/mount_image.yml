@@ -6,7 +6,6 @@
 
 - name: Mount rootfs image
   mount: >
-    src={{ embedux_tmp }}/rootfs.btrfs.img
     name={{ embedux_tmp }}/rootfs.btrfs.mnt 
-    fstype={{ playbook_dir}}/files/image_fstab
+    fstab={{ playbook_dir}}/files/image_fstab
     state=mounted
