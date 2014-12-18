@@ -4,10 +4,14 @@
   register: qemu_pid
   ignore_errors: True
 
-- name: Check if qemu is still running
-  shell: kill {{ qemu_pid.stdout }}; rm {{ qemu_pidfile }}
-  when: qemu_pid
-  ignore_errors: True
+- name: Check if the VM is reachable
+  shell: "true"
+  register: reachable
+  delegate_to: qemu
+
+- name: Kill the qemu process and clean up the pidfile
+  shell: kill -9 {{ qemu_pid.stdout }}; rm {{ qemu_pidfile }}
+  when: qemu_pid and reachable|failed
 
 - name: Check if the image is mounted
   shell: mount | grep {{ embedux_tmp }}/rootfs.btrfs.img
