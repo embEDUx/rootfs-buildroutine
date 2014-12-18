@@ -4,5 +4,5 @@
   register: mounted
   
 - name: Mount rootfs image
-  shell: sudo {{ embedux_tmp }}/rootfs.btrfs.img {{ embedux_tmp }}/rootfs.btrfs.img
+  shell: sudo mount {{ embedux_tmp }}/rootfs.btrfs.img {{ embedux_tmp }}/rootfs.btrfs.img
   when: mounted.stdout == "0"
