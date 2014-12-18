@@ -1,13 +1,8 @@
 ---
-- name: Render image fstab template
-  template: >
-    src=image_fstab.j2
-    dest={{ playbook_dir}}/files/image_fstab
-
+- name: Check if image is mounted
+  shell: mount | grep rootfs  wc -l
+  register: mounted
+  
 - name: Mount rootfs image
-  mount:
-    fstab: "{{ playbook_dir }}/files/image_fstab"
-    src: "{{ embedux_tmp }}/rootfs.btrfs.img"
-    name: "{{ embedux_tmp }}/rootfs.btrfs.img"
-    fstype: none
-    state: present
+  shell: sudo {{ embedux_tmp }}/rootfs.btrfs.img {{ embedux_tmp }}/rootfs.btrfs.img
+  when: mounted.stdout == "0"
