@@ -19,7 +19,7 @@
     archive=no delete=yes checksum=yes recursive=yes
 
 - name: Run prepare.sh inside rootfs
-  shell: sudo proot -q /usr/bin/qemu-arm -S {{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_prepare/ {{ embedux_tmp}}/files/prepare.sh
+  shell: sudo proot -q /usr/bin/qemu-arm -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -b /tmp -0 -r {{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_prepare/ {{ embedux_tmp}}/files/prepare.sh
 
 - name: Mark as prepared
   file: >
