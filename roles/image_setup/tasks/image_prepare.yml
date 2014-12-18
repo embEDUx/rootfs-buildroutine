@@ -15,10 +15,11 @@
     path={{ item }}
   with_items:
     - "{{ embedux_tmp }}/rootfs.btrfs.mnt"
-    - "{{ embedux_tmp }}/qemu_prepare/ssh_creds"
 
 - name: Mount rootfs image
-  shell: sudo mount {{ embedux_tmp }}/rootfs.btrfs.img {{ embedux_tmp }}/rootfs.btrfs.mnt 
+  mount: >
+    src={{ embedux_tmp }}/rootfs.btrfs.img
+    name={{ embedux_tmp }}/rootfs.btrfs.mnt 
 
 - name: Create btrfs subvolume for stage3 
   shell: sudo btrfs subvolume create {{ embedux_tmp }}/rootfs.btrfs.mnt/stage3
