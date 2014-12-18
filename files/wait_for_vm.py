@@ -12,7 +12,7 @@ s.bind((TCP_IP, TCP_PORT))
 s.listen(1)
 s.settimeout(360)
 
-print("Waiting the VM")
+print("Waiting for the VM")
 start = datetime.now()
 conn, addr = s.accept()
 print('Connection address: %s' % str(addr))
