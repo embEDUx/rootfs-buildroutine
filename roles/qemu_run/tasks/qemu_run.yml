@@ -15,7 +15,7 @@
 
 - name: Make sure the image is not mounted
   shell: sudo umount {{ embedux_tmp }}/rootfs.btrfs.img
-  when: mounted != ""
+  when: mounted.stdout != ""
 
 - name: Run emulator in background
   shell: "IMAGE={{ qemu_imagefile }} PIDFILE={{ qemu_pidfile }} KERNEL_DIR={{ qemu_kernel_dir }} \ 
