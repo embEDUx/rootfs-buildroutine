@@ -5,8 +5,8 @@
   ignore_errors: True
 
 - name: Kill the qemu process and clean up the pidfile
-  shell: kill -9 {{ qemu_pid.stdout }}; rm {{ qemu_pidfile }}
-  when: qemu_pid
+  shell: kill -9 {{ qemu_pid.stdout }}; -e rm {{ qemu_pidfile }}
+  when: not qemu_pid|failed
 
 - name: Blindly kill qemu processes
   shell: pkill -9 qemu
