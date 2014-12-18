@@ -30,9 +30,9 @@ chmod 600 /root/.ssh/authorized_keys
 cp send_signal_from_vm.py /etc/local.d/send_signal_from_vm.py.start
 
 # Kernel sources (needed by some packages to build properly)
-tar -xa -C / -f /var/tmp/embedux/linux-rootfs-addon.tar
+tar -xa -C / -f linux-rootfs-addon.tar
 ln -sf /usr/src/linux-* /usr/src/linux
-cp linux.config /usr/src/linux
+cp linux.config /usr/src/linux/.config
 
 # Dist-CC
 #emerge-webrsync
