@@ -10,7 +10,7 @@
   ignore_errors: True
 
 - name: Make sure the image is not mounted
-  shell: sudo umount {{ embedux_tmpdir }}/rootfs.btrfs.img
+  shell: sudo umount {{ embedux_tmp }}/rootfs.btrfs.img
   register: umount
   failed_when: umount.rc == 0
   ignore_errors: True
