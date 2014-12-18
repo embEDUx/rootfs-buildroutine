@@ -5,6 +5,7 @@
     dest={{ playbook_dir}}/files/image_fstab
 
 - name: Mount rootfs image
+  sudo: yes
   mount:
     fstab: "{{ playbook_dir }}/files/image_fstab"
     src: "{{ embedux_tmp }}/rootfs.btrfs.img"
