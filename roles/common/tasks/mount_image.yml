@@ -1,6 +1,6 @@
 ---
 - name: Check if image is mounted
-  shell: mount | grep rootfs | wc -l
+  shell: mount | grep {{ embedux_tmp }}/rootfs.btrfs.img | wc -l
   register: mounted
   
 - name: Mount rootfs image
