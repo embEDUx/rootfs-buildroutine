@@ -1,1 +1,6 @@
 ---
+- name: Run emulator in background
+  script: "{{ embedux_tmp }}/files/qemu_run.sh"
+
+- name: Wait for the VM to boot
+  script: "{{ embedux_tmp }}/files/wait_for_vm.py"

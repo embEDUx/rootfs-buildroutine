@@ -3,7 +3,4 @@
   roles:
     - image_setup
     - qemu_prepare
-
-- hosts: qemu
-  roles:
     - qemu_run
