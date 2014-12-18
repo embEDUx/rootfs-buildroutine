@@ -20,8 +20,10 @@ QEMU_AUDIO_DRV=none qemu-system-arm \
   -m 3072 \
   -nographic \
   -kernel zImage \
-  -append "root=/dev/mmcblk0 rw rootflags=rw,subvol=qemu_prepare console=ttyAMA0" \
+  -append "root=/dev/vda rw rootflags=subvol=qemu_prepare console=ttyAMA0" \
   -net user \
   -netdev user,id=vnet0 \
   -device virtio-net-device,netdev=vnet0 \
-  -sd ${EMBEDUX_TMP}/rootfs.btrfs.img 8G
+  -drive file=${EMBEDUX_TMP}/rootfs.btrfs.img,id=root \
+  -device virtio-blk-device,drive=root
+

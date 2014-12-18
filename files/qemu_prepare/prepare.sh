@@ -8,7 +8,6 @@ cp fstab /etc/fstab
 
 # make.conf defaults
 cat make.conf.appendix >> /etc/portage/make.conf
-echo FEATURES=\"\${FEATURES} distcc\" >> /etc/portage/make.conf
 
 # Localization
 echo en_US.UTF-8 UTF-8 >> /etc/locale.gen
@@ -24,7 +23,9 @@ ln -sf /etc/init.d/net.lo /etc/init.d/net.eth0
 
 # SSH
 mkdir /root/.ssh/ -p
-cat qemu.id.pub >> /root/.ssh/authorized_keys
+chmod 700 /root/.ssh
+cp qemu.id.pub /root/.ssh/authorized_keys
+chmod 600 /root/.ssh/authorized_keys
 /sbin/rc-update add sshd default
 
 # Dist-CC

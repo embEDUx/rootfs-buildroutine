@@ -16,4 +16,6 @@
   shell: sudo proot -q /usr/bin/qemu-arm -S {{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_prepare/ {{ embedux_tmp}}/files/prepare.sh
 
 - name: Mark as prepared
-  shell: touch {{ embedux_tmp }}/qemu_prepare/.done
+  file: >
+    path={{ embedux_tmp }}/.done_qemu_prepare
+    state=touch
