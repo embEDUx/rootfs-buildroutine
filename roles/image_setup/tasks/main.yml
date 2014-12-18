@@ -1,6 +1,6 @@
 ---
 - name: Check if the image has already been set up
-  shell: test -e {{ embedux_tmp }}/image_setup/.done
+  shell: test -e {{ embedux_tmp }}/.done_image_setup
   register: prepared
   ignore_errors: True
 

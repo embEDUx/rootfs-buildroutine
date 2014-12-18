@@ -33,4 +33,4 @@
   shell: rm -Rf {{ embedux_tmp }}/image_setup/ssh_creds/*; ssh-keygen -N "" -f {{ embedux_tmp }}/image_setup/ssh_creds/qemu.id && cp {{ embedux_tmp }}/image_setup/ssh_creds/qemu.id.pub {{ files_dir }}/qemu_prepare/
 
 - name: Mark as set up
-  shell: touch {{ embedux_tmp }}/image_setup/.done
+  shell: touch {{ embedux_tmp }}/.done_image_setup
