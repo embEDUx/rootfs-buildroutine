@@ -3,6 +3,7 @@
   shell: "true"
   ignore_errors: True
   register: reachable
+  gather_facts: False
   delegate_to: qemu
 
 - include: qemu_run.yml
