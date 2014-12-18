@@ -1,10 +1,10 @@
 ---
 - name: Check if the VM is reachable
-  shell: "true"
+  wait_for:
+    port: 2222
+    timeout: 1
   ignore_errors: True
   register: reachable
-  gather_facts: False
-  delegate_to: qemu
 
 - include: qemu_run.yml
   when: reachable|failed
