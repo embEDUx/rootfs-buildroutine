@@ -1,6 +1,16 @@
 ---
-- name: Run emulator in background
-  script: "{{ embedux_tmp }}/files/qemu_run.sh"
+- name: Check for PID file
+  shell: cat {{ qemu_pidfile }}
+  register: qemu_pid
+  ignore_errors: True
 
+- name: Check if qemu is still running
+  shell: kill {{ qemu_pid.stdout }}
+  when: qemu_pid
+  ignore_errors: True
+
+- name: Run emulator in background
+  shell: "IMAGE={{ qemu_imagefile }} PIDFILE={{ qemu_pidfile }} {{ embedux_tmp }}/files/qemu_run.sh"
+  
 - name: Wait for the VM to boot
-  script: "{{ embedux_tmp }}/files/wait_for_vm.py"
+  command: "{{ embedux_tmp }}/files/wait_for_vm.py"

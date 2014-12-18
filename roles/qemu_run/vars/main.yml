@@ -1,0 +1,3 @@
+---
+qemu_imagefile: "{{ embedux_tmp}}/rootfs.btrfs.img"
+qemu_pidfile:  "{{ embedux_tmp}}/qemu.pid"
