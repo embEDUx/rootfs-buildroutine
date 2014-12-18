@@ -1,9 +1,9 @@
 ---
 - name: Check if the VM is reachable
   shell: "true"
+  ignore_errors: yes
   register: reachable
   delegate_to: qemu
-  ignore_errors: True
 
 - include: qemu_run.yml
   when: reachable|failed
