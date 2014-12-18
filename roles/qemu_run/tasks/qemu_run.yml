@@ -15,6 +15,7 @@
 - name: Check if the image is mounted
   shell: mount | grep {{ embedux_tmp }}/rootfs.btrfs.img
   register: mounted
+  ignore_errors: True
 
 - name: Make sure the image is not mounted
   shell: sudo umount {{ embedux_tmp }}/rootfs.btrfs.img
