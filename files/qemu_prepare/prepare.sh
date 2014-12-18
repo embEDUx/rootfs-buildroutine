@@ -14,8 +14,8 @@ echo en_US.UTF-8 UTF-8 >> /etc/locale.gen
 echo de_DE.UTF-8 UTF-8 >> /etc/locale.gen
 /usr/sbin/locale-gen
 
-# Serial terminal
-echo f0:12345:respawn:/sbin/agetty -a root 9600 ttyAMA0 vt100 >> /etc/inittab
+# Inittab
+echo f0:12345:respawn:/sbin/agetty -a root 115200 ttyAMA0 vt100 >> /etc/inittab
 
 # Networking
 ln -sf /etc/init.d/net.lo /etc/init.d/net.eth0
@@ -27,6 +27,7 @@ chmod 700 /root/.ssh
 cp qemu.id.pub /root/.ssh/authorized_keys
 chmod 600 /root/.ssh/authorized_keys
 /sbin/rc-update add sshd default
+cp send_signal_from_vm.py /etc/local.d/send_signal_from_vm.py.start
 
 # Dist-CC
 #emerge-webrsync

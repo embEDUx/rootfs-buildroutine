@@ -18,12 +18,12 @@
 QEMU_AUDIO_DRV=none qemu-system-arm \
   -M virt \
   -m 3072 \
-  -nographic \
+  -daemonize \
   -kernel zImage \
   -append "root=/dev/vda rw rootflags=subvol=qemu_prepare console=ttyAMA0" \
   -net user \
   -netdev user,id=vnet0 \
+  -redir tcp:2222::22 \
   -device virtio-net-device,netdev=vnet0 \
   -drive file=${EMBEDUX_TMP}/rootfs.btrfs.img,id=root \
   -device virtio-blk-device,drive=root
-

@@ -15,7 +15,7 @@
     path={{ item }}
   with_items:
     - "{{ embedux_tmp }}/rootfs.btrfs.mnt"
-    - "{{ embedux_tmp }}/image_setup/ssh_creds"
+    - "{{ embedux_tmp }}/qemu_prepare/ssh_creds"
 
 - name: Mount rootfs image
   shell: sudo mount {{ embedux_tmp }}/rootfs.btrfs.img {{ embedux_tmp }}/rootfs.btrfs.mnt 
