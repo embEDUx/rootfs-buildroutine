@@ -3,4 +3,4 @@ downloads:
   linux.tar: http://moe:8010/linux/qemu-virt/3.18.0_qemu-virt_20141218190529_7c0a201_linux.tar.gz
   qemu_prepare/linux.config: http://moe:8010/linux/qemu-virt/3.18.0_qemu-virt_20141218190529_7c0a201_.config
   qemu_prepare/linux-rootfs-addon.tar: http://moe:8010/linux/qemu-virt/3.18.0_qemu-virt_20141218190529_7c0a201_root.tar.bz2
-qemu_kernel: "{{ embedux_tmp }}/zImage"
+qemu_kernel_dir: "{{ embedux_tmp }}"

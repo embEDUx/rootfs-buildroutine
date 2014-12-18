@@ -20,7 +20,7 @@ QEMU_AUDIO_DRV=none qemu-system-arm \
   -m 3072 \
   -daemonize \
   -pidfile ${PIDFILE} \
-  -kernel ${KERNEL} \
+  -kernel ${KERNEL_DIR}/zImage \
   -append "root=/dev/vda rw rootflags=subvol=qemu_prepare console=ttyAMA0" \
   -net user \
   -netdev user,id=vnet0 \
