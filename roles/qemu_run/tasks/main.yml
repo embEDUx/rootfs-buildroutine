@@ -18,8 +18,8 @@
   when: mounted != ""
 
 - name: Run emulator in background
-  command: "IMAGE={{ qemu_imagefile }} PIDFILE={{ qemu_pidfile }} KERNEL_DIR={{ qemu_kernel_dir }} \ 
-            {{ playbook_dir }}/roles/qemu_run/files/qemu_run.sh"
+  shell: "IMAGE={{ qemu_imagefile }} PIDFILE={{ qemu_pidfile }} KERNEL_DIR={{ qemu_kernel_dir }} \ 
+          {{ playbook_dir }}/roles/qemu_run/files/qemu_run.sh"
   
 - name: Wait for the VM to boot
-  command: "{{ playbook_dir }}/roles/qemu_run/files/wait_for_vm.py"
+  shell: "{{ playbook_dir }}/roles/qemu_run/files/wait_for_vm.py"
