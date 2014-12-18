@@ -3,6 +3,7 @@
   shell: "true"
   register: reachable
   delegate_to: qemu
+  ignore_errors: True
 
 - include: qemu_run.yml
   when: reachable|failed
