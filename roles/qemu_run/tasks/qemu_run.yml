@@ -6,11 +6,7 @@
 
 - name: Kill the qemu process and clean up the pidfile
   shell: kill -9 {{ qemu_pid.stdout }}; -e rm {{ qemu_pidfile }}
-  when: not qemu_pid|failed
-
-- name: Blindly kill qemu processes
-  shell: pkill -9 qemu
-  when: qemu_pid|failed
+  when: qemu_pid
 
 - name: Check if the image is mounted
   shell: mount | grep {{ embedux_tmp }}/rootfs.btrfs.img
