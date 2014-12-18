@@ -1,4 +1,7 @@
 ---
+- name: Create a btrfs snapshot for the prepare step
+  shell: sudo btrfs subvolume snapshot {{ embedux_tmp }}/rootfs.btrfs.mnt/stage3 {{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_prepare/
+
 - name: Create directories
   file: >
     state=directory
@@ -6,9 +9,6 @@
   with_items:
     - "{{ embedux_tmp }}/qemu_prepare/ssh_creds"
     - "{{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_prepare{{ embedux_tmp }}"
-
-- name: Create a btrfs snapshot for the prepare step
-  shell: sudo btrfs subvolume snapshot {{ embedux_tmp }}/rootfs.btrfs.mnt/stage3 {{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_prepare/
 
 - name: Create and copy the SSH key
   shell: rm -Rf {{ embedux_tmp }}/qemu_prepare/ssh_creds/*; ssh-keygen -N "" -f {{ embedux_tmp }}/qemu_prepare/ssh_creds/qemu.id && cp {{ embedux_tmp }}/qemu_prepare/ssh_creds/qemu.id.pub {{ files_dir }}/qemu_prepare/
