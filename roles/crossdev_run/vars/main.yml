@@ -1,2 +1,2 @@
 ---
-
+crossdev_target: {{ target_arch
