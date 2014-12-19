@@ -1,0 +1,13 @@
+---
+- name: Check for running distccd
+  shell: ps aux | grep distccd
+  register: distccd_pid
+  ignore_errors: True
+
+- name: Kill the distccd process and clean up the pidfile
+  shell: pkill -9 distccd
+  when: distccd_pid.stdout != ""
+
+- name: Run distccd
+  shell: "distccd --daemon --port 3632 --log-level notice \
+          --log-file {{ distccd_logfile }} -N 0 --allow 127.0.0.1"

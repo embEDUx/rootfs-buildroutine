@@ -1,0 +1,10 @@
+---
+- name: Check if distccd is reachable
+  wait_for:
+    port: 3632
+    timeout: 30
+  ignore_errors: True
+  register: reachable
+  
+- include: distcc_run.yml 
+  when: reachable|failed

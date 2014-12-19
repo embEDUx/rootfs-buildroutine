@@ -1,0 +1,2 @@
+---
+distccd_logfile: "{{ embedux_tmp }}/distccd.log" 

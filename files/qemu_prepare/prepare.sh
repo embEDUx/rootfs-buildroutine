@@ -34,11 +34,14 @@ tar -xa -C / -f linux-rootfs-addon.tar
 ln -sf /usr/src/linux-* /usr/src/linux
 cp linux.config /usr/src/linux/.config
 
-emerge-webrsync
+# Portage
+emerge --sync
 emerge gentoolkit
 
 # Dist-CC
 emerge sys-devel/distcc
+echo FEATURES=\"\${FEATURES} distcc\" >> /etc/portage/make.conf
+echo "10.0.2.2,lzo,cpp" > /etc/distcc/hosts
 
 WRAPPER_BASE=$(ls -1 /usr/lib/distcc/bin/ | grep -o ".*-" | uniq)
 cat << EOF > /usr/lib/distcc/bin/${WRAPPER_BASE}wrapper
@@ -51,7 +54,5 @@ for cmd in c++ g++ gcc cc; do
     ln -s ${WRAPPER_BASE}wrapper /usr/lib/distcc/bin/${cmd}
 done
 
-echo FEATURES=\"\${FEATURES} distcc\" >> /etc/portage/make.conf
-echo "10.0.2.2,lzo,cpp" > /etc/distcc/hosts
 
 popd
