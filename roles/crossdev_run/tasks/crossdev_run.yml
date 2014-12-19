@@ -1,6 +1,6 @@
 ---
 - name: Generate a cross toolchain
-  shell: crossdev {{ crossdev_args }} ${TARGET_ARCh}-hardfloat-linux-gnueabi
+  shell: crossdev {{ hostvars["qemu"]["crossdev_args"] }} ${TARGET_ARCh}-hardfloat-linux-gnueabi
 
 - name: Mark crossdev as run
   file: >
