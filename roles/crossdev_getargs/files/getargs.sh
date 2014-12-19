@@ -4,4 +4,4 @@ A=`/usr/bin/gcc-config -c` ; B=`echo $A | cut -d- -f5` ; GCC_VER=`equery l sys-d
 KERNEL_VER=`uname -r | sed s/-gentoo//`
 A="sys-libs/glibc" ; B=`equery l $A` ; LIBC_VER=`echo $B | cut -d- -f3-`
 source /etc/portage/make.conf
-echo "--b =$BINUTILS_VER --g =$GCC_VER --k =$KERNEL_VER --l =$LIBC_VER -t `uname -m` -t ${CHOST}"
+echo "--b =$BINUTILS_VER --g =$GCC_VER --k =$KERNEL_VER --l =$LIBC_VER -t ${CHOST}"
