@@ -1,6 +1,11 @@
 ---
+- name: Run script that estimates the crossdev arguments
+  script: getargs.sh
+  register: crossdev_args
+  delegate_to: qemu
+
 - name: Generate a cross toolchain
-  shell: sudo crossdev {{ hostvars["qemu"]["crossdev_args"] }}
+  shell: sudo crossdev {{ hostvars["qemu"]["crossdev_args"].stdout }}
 
 - name: Mark crossdev as run
   file: >
