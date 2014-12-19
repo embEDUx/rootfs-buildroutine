@@ -13,7 +13,7 @@
 - hosts: qemu
   roles:
     - role: crossdev_getargs
-      when: crossdev_check|failed
+      when: hostvars["localhost"]["crossdev_check"]|failed
 
 - hosts: localhost
   roles:
