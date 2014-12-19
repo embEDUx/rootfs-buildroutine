@@ -9,7 +9,7 @@
   roles:
     - crossdev_getargs
 
-#- hosts: localhost
-#  roles:
-#    - crossdev_create
+- hosts: localhost
+  roles:
+    - crossdev_run
 #    - distcc_run

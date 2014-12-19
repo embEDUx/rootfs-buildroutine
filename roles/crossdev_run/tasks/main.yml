@@ -1,0 +1,7 @@
+- name: Check if crossdev has already been run
+  shell: test -e {{ embedux_tmp }}/.done_crossdev_run
+  register: crossdev_check
+  ignore_errors: True
+
+- include: crossdev_run.yml
+  when: crossdev_check|failed

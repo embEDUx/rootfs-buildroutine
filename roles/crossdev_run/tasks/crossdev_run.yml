@@ -1,0 +1,8 @@
+---
+- name: Generate a cross toolchain
+  shell: crossdev {{ crossdev_args }} ${TARGET_ARCh}-hardfloat-linux-gnueabi
+
+- name: Mark crossdev as run
+  file: >
+    path={{ embedux_tmp }}/.done_crossdev_run
+    state=touch
