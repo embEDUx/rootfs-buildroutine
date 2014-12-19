@@ -1,7 +1,13 @@
-- name: Check if crossdev has already been run
-  shell: test -e {{ embedux_tmp }}/.done_crossdev_run
-  register: crossdev_check
-  ignore_errors: True
+---
+- name: Run script that estimates the crossdev arguments
+  script: /tmp/getargs.sh
+  register: crossdev_args
+  delegate_to: qemu
 
-- include: crossdev_run.yml
-  when: crossdev_check|failed
+- name: Generate a cross toolchain
+  shell: sudo crossdev {{ hostvars["qemu"]["crossdev_args"].stdout }}
+
+- name: Mark crossdev as run
+  file: >
+    path={{ embedux_tmp }}/.done_crossdev_run
+    state=touch

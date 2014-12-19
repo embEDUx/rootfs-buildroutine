@@ -2,7 +2,6 @@
 - name: Run script that estimates the crossdev arguments
   script: getargs.sh
   register: crossdev_getargs
-  delegate_to: qemu
 
 - name: Set crossdev_args fact
   set_fact:
