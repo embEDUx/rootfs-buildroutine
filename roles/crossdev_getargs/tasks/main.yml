@@ -1,8 +1,8 @@
 ---
 - name: Run script that estimates the crossdev arguments
   script: getargs.sh
-  register: crossdev_args
+  register: crossdev_getargs
 
 - name: Set crossdev_args fact
-  set_fact: >
-    crossdev_args={{ crossdev_args.stdout }}
+  set_fact:
+    crossdev_args: "{{ crossdev_getargs.stdout }}"
