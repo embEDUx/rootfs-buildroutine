@@ -4,3 +4,11 @@
     - image_setup
     - qemu_prepare
     - qemu_run
+
+- hosts: qemu
+    - crossdev_getargs
+
+#- hosts: localhost
+#  roles:
+#    - crossdev_create
+#    - distcc_run
