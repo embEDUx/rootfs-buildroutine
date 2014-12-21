@@ -1,2 +1,7 @@
 ---
 ansible_connection: local
+
+target_arch: "{{ lookup('env','TARGET_ARCH') }}"
+target_arch_short: "{{ lookup('env','TARGET_ARCH_SHORT') }}"
+native_arch: "{{ lookup('env',' NATIVE_ARCH') }}"
+native_arch_short: "{{ lookup('env',' NATIVE_ARCH_SHORT') }}"
