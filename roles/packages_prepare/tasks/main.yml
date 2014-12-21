@@ -1,5 +1,4 @@
 ---
-tasks:
-  - name: Make sure flaggie is emerged
-    include: "{{ playbook_dir }}/roles/common/tasks/emerge_pkg.yml"
-    atom: "app-portage/flaggie"
+- name: Make sure flaggie is emerged
+  include: "{{ playbook_dir }}/roles/common/tasks/emerge_pkg.yml"
+  atom: "app-portage/flaggie"
