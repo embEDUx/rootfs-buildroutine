@@ -6,7 +6,7 @@
 
 - name: Kill the distccd process and clean up the pidfile
   shell: pkill -9 distccd
-  when: "distccd --daemon" in distccd_pid.stdout
+  when: "'distccd --daemon' in distccd_pid.stdout"
 
 - name: Run distccd
   shell: "distccd --daemon --port 3632 --log-level notice \
