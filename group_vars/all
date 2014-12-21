@@ -1,4 +1,4 @@
 ---
 embedux_tmp: /var/tmp/embedux
 files_dir: "{{ playbook_dir }}/files"
-pwd: "{{ lookup('env','${PWD}') }}"
+pwd: "{{ lookup('env','PWD') }}"
