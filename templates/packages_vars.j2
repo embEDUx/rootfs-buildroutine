@@ -15,7 +15,7 @@ package_flags:
   - {{ package }} {% for type, sign_flags in global.items() %}{% for sign, flags in sign_flags.items()  %}{% for flag in flags %}{{ sign }}{{ type }}::{{ flag }} {% endfor %}{% endfor %}{% endfor %}
 {% endfor %}
 
-packages:
+packages_list:
 {% for package in packages.keys() %}
   - {{ package }}
 {% endif %}
