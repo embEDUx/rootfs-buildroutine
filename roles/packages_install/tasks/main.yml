@@ -1,5 +1,4 @@
 ---
-- name: Install configured package
-  include: "{{ playbook_dir }}/roles/common/tasks/emerge_pkg.yml"
-  atom: "{{ item }}"
-  with_items: packages_list
+- name: Install configured packages
+  include: "{{ playbook_dir }}/roles/common/tasks/emerge_pkgs.yml"
+  atom: "{{ packages_list|join(' ') }}"
