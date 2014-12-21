@@ -1,8 +1,8 @@
 ---
 {% if global is defined %}
 global_flags:
-{% for type, sign_flags in global %}
-{% for sign, flags in sign_flags  %}
+{% for type, sign_flags in global.items() %}
+{% for sign, flags in sign_flags.items()  %}
   - {% for flag in flags %}{{ sign }}{{ type }}::{{ flag }} {% endfor %}
 {% endfor %}
 {% endfor %}
