@@ -1,0 +1,9 @@
+---
+{% if global|defined %}
+global_flags:
+{% for type, sign_flags in global %}
+{% for sign, flags in sign_flags  %}
+  - {% for flag in flags %}{{ sign }}{{ type }}::{{ flag }} {% endfor %}
+{% endfor %}
+{% endfor %}
+{% endif %}
