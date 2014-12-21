@@ -5,3 +5,12 @@
 
 - include: cross.yml
   when: native_arch != target_arch
+
+- hosts: qemu
+  tasks:
+    - name: Make sure flaggie is emerged
+      include: "{{ playbook_dir }}/roles/common/tasks/emerge_pkg.yml"
+      atom: "app-portage/flaggie"
+
+    - name: Read the variable file from the current branch
+      include_vars: "{{ pwd }}/configuration.yml"

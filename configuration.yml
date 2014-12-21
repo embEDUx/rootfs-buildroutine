@@ -1,4 +1,11 @@
 ---
+container:
+    kw:
+      +: ["~arm"]
+    use:
+      +: ["-doc"]
+      -: ["X"]
+
 packages:
   app-emulation/docker:
     kw:
