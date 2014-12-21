@@ -1,12 +1,13 @@
 ---
 - name: emerge using autounmask
-  shell: emerge --autounmask-write=y {{ atom }}
+  shell: emerge --autounmask-write=y -n {{ atom }}
   register: autounmasked
+  ignore_errors: True
 
 - name: run etc-update in automode
   shell: etc-update --auto-mode -5
   when: autounmasked|failed
 
 - name: emerge regularely
-  shell: emerge {{ atom }}
+  shell: emerge -n {{ atom }}
   when: autounmasked|failed
