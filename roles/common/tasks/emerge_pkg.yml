@@ -5,7 +5,7 @@
   ignore_errors: True
 
 - name: run etc-update in automode
-  shell: etc-update --auto-mode -5
+  shell: etc-update --automode -5
   when: autounmasked|failed
 
 - name: emerge regularely
