@@ -4,4 +4,4 @@
     - image_setup
 
 - include: cross.yml
-  when: native_arch.stdout != target_arch.stdout !=
+  when: native_arch != target_arch
