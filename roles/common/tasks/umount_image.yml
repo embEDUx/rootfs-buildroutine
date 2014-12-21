@@ -1,0 +1,8 @@
+---
+- name: Check if image is mounted
+  shell: mount | grep {{ embedux_tmp }}/rootfs.btrfs.img | wc -l
+  register: mounted
+  
+- name: Unmount rootfs image
+  shell: sudo umount {{ embedux_tmp }}/rootfs.btrfs.img
+  when: mounted.stdout == "1"

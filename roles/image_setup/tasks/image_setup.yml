@@ -3,6 +3,8 @@
   shell: sudo docker images -q embedux/stage3-${TARGET_ARCH} | tail -n1
   register: stage3_image
 
+- include: "{{ playbook_dir }}/roles/common/tasks/umount_image.yml"
+
 - name: Create rootfs image file
   shell: qemu-img create -f raw {{ embedux_tmp }}/rootfs.btrfs.img 8G
 
