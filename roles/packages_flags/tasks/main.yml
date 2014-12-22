@@ -1,6 +1,6 @@
 ---
 - name: Set the global flags
-  shell: flaggie {{ global_flags }}
+  shell: flaggie "{{ global_flags|join(' ') }}"
 
 - name: Set the package flags
   shell: flaggie {{ item }}
