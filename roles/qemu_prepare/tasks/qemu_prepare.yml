@@ -3,7 +3,7 @@
   include_vars: main.yml
 
 - name: Create a btrfs snapshot for the prepare step
-  shell: sudo btrfs subvolume snapshot {{ embedux_tmp }}/rootfs.btrfs.mnt/stage3 {{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_prepare/
+  shell: sudo btrfs subvolume snapshot {{ embedux_tmp }}/rootfs.btrfs.mnt/stage3 {{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_prepare
 
 - name: Create directories
   file: >
@@ -36,7 +36,9 @@
 - name: Run prepare.sh inside rootfs
   shell: sudo proot -q /usr/bin/qemu-arm -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -b /tmp -0 -r {{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_prepare/ {{ embedux_tmp}}/files/prepare.sh
 
+
 - name: Mark as prepared
   file: >
     path={{ embedux_tmp }}/.done_qemu_prepare
     state=touch
+

@@ -2,6 +2,8 @@
 - hosts: localhost
   roles:
     - image_setup
+    - qemu_prepare
+    - qemu_run
 
 - include: cross.yml
   when: native_arch != target_arch
@@ -11,3 +13,9 @@
     - packages_prepare
     - packages_flags
     - packages_install
+
+- hosts: localhost
+  roles:
+    - qemu_stop
+    - rootfs_copyoverlay
+    - rootfs_pack

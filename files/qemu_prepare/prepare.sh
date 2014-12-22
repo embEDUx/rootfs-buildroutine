@@ -40,7 +40,7 @@ emerge gentoolkit
 
 # Dist-CC
 emerge sys-devel/distcc
-echo FEATURES=\"\${FEATURES} distcc\" >> /etc/portage/make.conf
+echo FEATURES=\"\${FEATURES} distcc distcc-pump\" >> /etc/portage/make.conf
 echo "10.0.2.2,lzo,cpp" > /etc/distcc/hosts
 
 WRAPPER_BASE=$(ls -1 /usr/lib/distcc/bin/ | grep -o ".*-" | uniq)

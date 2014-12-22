@@ -1,0 +1,8 @@
+---
+- name: Make sure output folder exists
+  file: >
+    path={{ pwd }}/output
+    state=directory
+
+- name: Pack the rootfs
+  shell: sudo tar -cjtpf {{ pwd }}/output/$(git rev-parse --abbrev-ref HEAD)_$(date '+%Y%m%d%H%M%S')_$(git rev-parse --short HEAD)_rootfs.tbz2 -C {{ embedux_tmp }}/rootfs.btrfs.mnt/copyoverlay/ .

@@ -1,0 +1,4 @@
+---
+- include: "{{ playbook_dir }}/roles/common/tasks/qemu_kill.yml"
+- include: "{{ playbook_dir }}/roles/common/tasks/mount_image.yml"
+

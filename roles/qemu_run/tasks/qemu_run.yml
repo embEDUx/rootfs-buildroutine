@@ -1,21 +1,20 @@
 ---
-- name: Check for PID file
-  shell: cat {{ qemu_pidfile }}
-  register: qemu_pid
+- include: "{{ playbook_dir }}/roles/common/tasks/qemu_kill.yml"
+- include: "{{ playbook_dir }}/roles/common/tasks/mount_image.yml"
+
+- name: Check if a snapshot already exists
+  shell: test -e {{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_run
+  register: snapshot_exists
   ignore_errors: True
 
-- name: Kill the qemu process and clean up the pidfile
-  shell: kill -9 {{ qemu_pid.stdout }}; -e rm {{ qemu_pidfile }}
-  when: qemu_pid.stdout != ""
+- name: Remove the last snapshot 
+  shell: sudo btrfs subvolume delete {{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_run
+  when: snapshot_exists|success
 
-- name: Check if the image is mounted
-  shell: mount | grep {{ embedux_tmp }}/rootfs.btrfs.img
-  register: mounted
-  ignore_errors: True
+- name: Create a btrfs snapshot for the prepare step
+  shell: sudo btrfs subvolume snapshot {{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_prepare {{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_run
 
-- name: Make sure the image is not mounted
-  shell: sudo umount {{ embedux_tmp }}/rootfs.btrfs.img
-  when: mounted.stdout != ""
+- include: "{{ playbook_dir }}/roles/common/tasks/umount_image.yml"
 
 - name: Run emulator in background
   shell: "IMAGE={{ qemu_imagefile }} PIDFILE={{ qemu_pidfile }} KERNEL_DIR={{ qemu_kernel_dir }} \ 

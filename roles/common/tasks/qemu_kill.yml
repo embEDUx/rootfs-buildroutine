@@ -1,0 +1,9 @@
+---
+- name: Check for PID file
+  shell: cat {{ qemu_pidfile }}
+  register: qemu_pid
+  ignore_errors: True
+
+- name: Kill the qemu process and clean up the pidfile
+  shell: kill -9 {{ qemu_pid.stdout }}; -e rm {{ qemu_pidfile }}
+  when: qemu_pid.stdout != ""
