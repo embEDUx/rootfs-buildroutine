@@ -12,6 +12,7 @@
 
 - hosts: qemu
   roles:
+    - packages_prepare
     - packages_flags
     - packages_install
 
