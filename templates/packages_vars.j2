@@ -3,7 +3,7 @@
 global_flags:
 {% for type, sign_flags in global.items() %}
 {% for sign, flags in sign_flags.items()  %}
-  - {% for flag in flags %}{{ sign }}{{ type }}::{{ flag }} {% endfor %}
+  - {% for flag in flags.split(" ") %}{{ sign }}{{ type }}::{{ flag }} {% endfor %}
 {% endfor %}
 
 {% endfor %}
@@ -14,7 +14,7 @@ global_flags:
 package_flags:
 {% for package, flagdicts in packages.items() %}
 {% if flagdicts|length > 0 %}
-  - {{ package }} {% for type, sign_flags in flagdicts.items() %}{% for sign, flags in sign_flags.items()  %}{% for flag in flags %}{{ sign }}{{ type }}::{{ flag }} {% endfor %}{% endfor %}{% endfor %}
+  - {{ package }} {% for type, sign_flags in flagdicts.items() %}{% for sign, flags in sign_flags.items()  %}{% for flag in flags.split(" ") %}{{ sign }}{{ type }}::{{ flag }} {% endfor %}{% endfor %}{% endfor %}
 
 {% endif %}
 {% endfor %}
