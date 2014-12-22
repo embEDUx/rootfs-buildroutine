@@ -33,8 +33,13 @@
     src={{ playbook_dir }}/files/qemu_prepare/ dest={{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_prepare{{ embedux_tmp }}/files
     archive=no delete=yes checksum=yes recursive=yes
 
+- name: Set qemu_emulator
+  set_fact:
+    qemu_emulator: "-q qemu-{{ target_arch_short }}"
+  when: native_arch != target_arch
+
 - name: Run prepare.sh inside rootfs
-  shell: sudo proot -q /usr/bin/qemu-arm -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -b /tmp -0 -r {{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_prepare/ {{ embedux_tmp}}/files/prepare.sh
+  shell: sudo proot {{ qemu_emulator|default('') }} -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -b /tmp -0 -r {{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_prepare/ {{ embedux_tmp}}/files/prepare.sh
 
 
 - name: Mark as prepared
