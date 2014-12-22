@@ -3,6 +3,7 @@
   roles:
     - image_setup
     - qemu_prepare
+    - qemu_stop
     - qemu_run
 
 - include: cross.yml

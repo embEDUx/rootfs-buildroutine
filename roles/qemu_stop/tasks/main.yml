@@ -1,4 +1,16 @@
 ---
+- name: Check if the VM is reachable
+  wait_for:
+    port: 2222
+    timeout: 30
+    search_regex: ".*SSH.*"
+  ignore_errors: True
+  register: reachable
+
+- name: Remount qemu's filesystem read-only and sync it
+  shell: remount -o remount,ro /; sync
+  when: reachable|success
+  ignore_errors: True
+
 - include: "{{ playbook_dir }}/roles/common/tasks/qemu_kill.yml"
 - include: "{{ playbook_dir }}/roles/common/tasks/mount_image.yml"
-
