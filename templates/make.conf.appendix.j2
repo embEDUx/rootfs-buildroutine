@@ -1,5 +1,5 @@
 
 NUMCPUS={{ ansible_processor|length }}
 MAKEOPTS="-l${NUMCPUS} -j${NUMCPUS}"
-EMERGE_DEFAULT_OPTS="--jobs=1 --load-average=${NUMCPUS} -q"
+EMERGE_DEFAULT_OPTS="--jobs=2 --load-average=${NUMCPUS} -q"
 FEATURES="${FEATURES} parallel-fetch"
