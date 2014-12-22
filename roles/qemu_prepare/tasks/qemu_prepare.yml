@@ -14,6 +14,15 @@
 - name: Create a btrfs snapshot for the prepare step
   shell: sudo btrfs subvolume snapshot {{ embedux_tmp }}/rootfs.btrfs.mnt/stage3 {{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_prepare
 
+- name: Check if the pkgdir subvolume already exists
+  shell: test -e {{ embedux_tmp }}/rootfs.btrfs.mnt/pkgdir
+  register: pkgdir_exists
+  ignore_errors: True
+
+- name: Create a btrfs subvolume for the pkgdir
+  shell: sudo btrfs subvolume create {{ embedux_tmp }}/rootfs.btrfs.mnt/pkgdir
+  when: pkgdir_exists|failed
+
 - name: Create directories
   file: >
     state=directory

@@ -16,3 +16,4 @@
 # NOTE: If your BOOT partition is ReiserFS, add the notail option to opts.
 none		/var/tmp/	tmpfs		defaults		0 0
 none		/tmp/	tmpfs		defaults		0 0
+/dev/vda  /mnt/pkgdir btrfs defaults,subvol=pkgdir  0 0

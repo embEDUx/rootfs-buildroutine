@@ -54,5 +54,10 @@ for cmd in c++ g++ gcc cc; do
     ln -s ${WRAPPER_BASE}wrapper /usr/lib/distcc/bin/${cmd}
 done
 
+# Prepare binary packages
+mkdir /mnt/pkgdir
+chown portage:portage /mnt/pkgdir
+echo PKGDIR=\"\/mnt/pkgdir\" >> /etc/portage/make.conf
+
 
 popd
