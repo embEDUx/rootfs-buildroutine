@@ -13,6 +13,7 @@ global_flags:
 package_flags:
 {% for package, flagdicts in packages.items() %}
   - {{ package }} {% for type, sign_flags in global.items() %}{% for sign, flags in sign_flags.items()  %}{% for flag in flags %}{{ sign }}{{ type }}::{{ flag }} {% endfor %}{% endfor %}{% endfor %}
+
 {% endfor %}
 
 packages_list:
