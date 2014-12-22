@@ -1,6 +1,7 @@
 ---
 - hosts: localhost
   roles:
+    - packages_prepare
     - qemu_stop
     - image_setup
     - qemu_prepare
@@ -11,7 +12,6 @@
 
 - hosts: qemu
   roles:
-    - packages_prepare
     - packages_flags
     - packages_install
 
