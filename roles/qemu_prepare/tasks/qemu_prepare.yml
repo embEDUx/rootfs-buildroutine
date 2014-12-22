@@ -49,7 +49,7 @@
 - name: Render make.conf.appendix template
   template:
     src: "{{ playbook_dir }}/templates/make.conf.appendix.j2"
-    dest: "{{ playbook_dir }}/roles/qemu_prepare/make.conf.appendix"
+    dest: "{{ playbook_dir }}/files/qemu_prepare/make.conf.appendix"
     
 - name: Synchronize files
   synchronize: >
