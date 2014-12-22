@@ -14,7 +14,7 @@
 - include: "{{ playbook_dir }}/roles/common/tasks/umount_image.yml"
 
 - name: Run emulator in background
-  shell: "MACHINE_ARG={{ machine_arg[target_arch_short] }} IMAGE={{ qemu_imagefile }} PIDFILE={{ qemu_pidfile }} KERNEL_DIR={{ qemu_kernel_dir }} \ 
+  shell: "MACHINE_ARG={{ machine_arg[target_arch_short] }} QEMU_ARCH={{ qemu_arch[target_arch_short]|default(target_arch_short) }} IMAGE={{ qemu_imagefile }} PIDFILE={{ qemu_pidfile }} KERNEL_DIR={{ qemu_kernel_dir }} \ 
           {{ playbook_dir }}/roles/qemu_run/files/qemu_run.sh"
   
 - name: Wait for the VM to boot

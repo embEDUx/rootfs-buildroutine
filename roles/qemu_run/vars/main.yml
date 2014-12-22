@@ -2,3 +2,6 @@
 machine_arg:
   arm: "virt"
   amd64: "pc-i440fx-2.1"
+
+qemu_arch:
+  amd64: "x86_64"
