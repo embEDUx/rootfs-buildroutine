@@ -1,9 +1,10 @@
 ---
-- name: Check for PID file
-  shell: cat {{ qemu_pidfile }}
-  register: qemu_pid
+- name: Check for running qemu
+  shell: ps aux | grep qemu | grep -v grep | wc -l
+  register: qemu_running
   ignore_errors: True
 
 - name: Kill the qemu process and clean up the pidfile
-  shell: kill -9 {{ qemu_pid.stdout }}; -e rm {{ qemu_pidfile }}
-  when: qemu_pid.stdout != ""
+  shell: pkill -9 qemu; rm -f {{ qemu_pidfile }}
+  when: qemu_running.stdout != "0"
+  ignore_errors: True

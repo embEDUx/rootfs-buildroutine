@@ -7,4 +7,6 @@
   ignore_errors: True
   register: reachable
 
+- include: "{{ playbook_dir }}/roles/common/tasks/qemu_kill.yml"
+- include: "{{ playbook_dir }}/roles/common/tasks/mount_image.yml"
 - include: qemu_run.yml
