@@ -1,1 +1,4 @@
 ---
+machine_arg:
+  arm: "-M virt"
+  amd64: "-M pc-i440fx-2.1"

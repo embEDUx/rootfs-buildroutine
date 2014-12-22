@@ -15,8 +15,7 @@
 #  -fsdev local,id=root,path=/var/tmp/embedux/rootfs/,security_model=mapped-file \
 #  -device virtio-9p-device,fsdev=root,mount_tag=/dev/root
 
-QEMU_AUDIO_DRV=none qemu-system-${TARGET_ARCH_SHORT} \
-  -M virt \
+QEMU_AUDIO_DRV=none qemu-system-${TARGET_ARCH_SHORT} ${MACHINE_ARG} \
   -m 3072 \
   -daemonize \
   -pidfile ${PIDFILE} \
