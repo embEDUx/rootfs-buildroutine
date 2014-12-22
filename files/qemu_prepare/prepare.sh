@@ -36,7 +36,7 @@ cp linux.config /usr/src/linux/.config
 
 # Portage
 emerge --sync
-emerge gentoolkit
+emerge gentoolkit flaggie
 
 # Dist-CC
 emerge sys-devel/distcc

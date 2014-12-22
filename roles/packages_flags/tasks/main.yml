@@ -1,9 +1,7 @@
 ---
-- name: Read the variable file from the current branch
-  include_vars: "{{ pwd }}/configuration.yml"
+- name: Set the global flags
+  shell: flaggie {{ global_flags }}
 
-- name: Render vars template
-  local_action: template src={{ playbook_dir }}/templates/packages_vars.j2 dest={{ pwd }}/package_vars.yml
-
-- name: Read the generated vars file
-  include_vars: "{{ pwd }}/package_vars.yml"
+- name: Set the package flags
+  shell: flaggie {{ item }}
+  with_items: package_flags
