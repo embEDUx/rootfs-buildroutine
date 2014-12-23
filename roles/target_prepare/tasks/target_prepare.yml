@@ -1,0 +1,50 @@
+---
+- name: Check if a snapshot already exists
+  shell: test -e {{ target_prepare_dir }}
+  register: snapshot_exists
+  ignore_errors: True
+
+- name: Remove the last snapshot 
+  shell: sudo btrfs subvolume delete {{ target_prepare_dir }}
+  when: snapshot_exists|success
+
+- name: Create a btrfs snapshot for the prepare step
+  shell: sudo btrfs subvolume snapshot {{ stage3_dir }} {{ target_prepare_dir }}
+
+- name: Check if the pkgdir subvolume already exists
+  shell: test -e {{ embedux_tmp }}/rootfs.btrfs.mnt/pkgdir
+  register: pkgdir_exists
+  ignore_errors: True
+
+- name: Create a btrfs subvolume for the pkgdir
+  shell: sudo btrfs subvolume create {{ embedux_tmp }}/rootfs.btrfs.mnt/pkgdir
+  when: pkgdir_exists|failed
+
+- name: Create directories
+  file: >
+    state=directory
+    path={{ item }}
+  with_items:
+    - "{{ embedux_tmp }}/target_prepare/ssh_creds"
+    - "{{ target_prepare_dir }}{{ embedux_tmp }}"
+
+- name: Create and copy the SSH key
+  shell: rm -Rf {{ embedux_tmp }}/target_prepare/ssh_creds/*; ssh-keygen -N "" -f {{ embedux_tmp }}/target_prepare/ssh_creds/target.id && cp {{ embedux_tmp }}/target_prepare/ssh_creds/target.id.pub {{ files_dir }}/target_prepare/
+
+- name: Render make.conf.appendix template
+  template:
+    src: "{{ playbook_dir }}/templates/make.conf.appendix.j2"
+    dest: "{{ playbook_dir }}/files/target_prepare/make.conf.appendix"
+
+- name: Synchronize files
+  synchronize: >
+    src={{ playbook_dir }}/files/target_prepare/ dest={{ target_prepare_dir }}{{ embedux_tmp }}/files
+    archive=no delete=yes checksum=yes recursive=yes
+
+- name: Run target_prepare.sh inside rootfs
+  shell: sudo proot {{ qemu_emulator|default('') }} -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -b /tmp -0 -r {{ target_prepare_dir }}/ {{ embedux_tmp}}/files/target_prepare.sh
+
+- name: Mark as prepared
+  file: >
+    path={{ embedux_tmp }}/.done_target_prepare
+    state=touch

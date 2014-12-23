@@ -1,0 +1,12 @@
+---
+- name: Check if a snapshot already exists
+  shell: test -e {{ target_run_dir }}
+  register: snapshot_exists
+  ignore_errors: True
+
+- name: Remove the last snapshot 
+  shell: sudo btrfs subvolume delete {{ target_run_dir }}
+  when: snapshot_exists|success
+
+- name: Create a btrfs snapshot for the target to run in
+  shell: sudo btrfs subvolume snapshot {{ target_prepare_dir }} {{ target_run_dir }}

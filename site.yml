@@ -1,22 +1,56 @@
 ---
+# Setup and prepare phase
+- hosts: localhost
+  tasks:
+    - name: Estimate wether to produce a native image or not
+      set_fact:
+        native: {{ native_arch == target_arch }}
+
 - hosts: localhost
   roles:
-    - packages_prepare
-    - qemu_stop
+    - eval_vars
     - image_setup
-    - qemu_prepare
-    - qemu_run
+    - target_stop
+    - target_prepare
+    - target_rundir_init
 
-- include: cross.yml
-  when: native_arch != target_arch
+# Run phase
+- include: "{{ playbook_dir }}/plays/qemu_prepare_run_crossdev.yml"
+  when: native == False
+- include: "{{ playbook_dir }}/plays/proot_prepare_and_run.yml"
+  when: native == True
 
-- hosts: qemu
-  roles:
-    - packages_prepare
-    - packages_flags
-    - packages_install
-
+# Pre-Install and Install phase
 - hosts: localhost
   roles:
-    - qemu_stop
+    - role: copy_overlay
+      overlay: pre_install_overlay
+- hosts: target
+  roles:
+    - eval_vars
+    - packages_flags
+    - role: run_commands
+      commands: "{{ pre_install_commands }}"
+      when: pre_install_commands is defined
+    - role: packages_install
+
+# Post-Install phase
+- hosts: localhost
+  roles:
+    - role: copy_overlay
+      overlay: post_install_overlay
+- hosts: target
+  roles:
+    - role: run_commands
+      commands: "{{ post_install_commands }}"
+      when: post_install_commands is defined
+
+# Cleanup and Pack and Maintain image
+- hosts: localhost
+  roles:
+    - target_stop
     - rootfs_pack
+    - image_maintain
+  tasks:
+    - include: "{{ playbook_dir }}/roles/common/tasks/btrfs_balance.yml"
+      path: "{{ base_mount_dir }}/"

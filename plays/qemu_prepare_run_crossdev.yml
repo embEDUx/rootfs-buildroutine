@@ -1,12 +1,11 @@
 ---
 - hosts: localhost
-  tasks:
-    - name: Check if crossdev has already been run
-      shell: test -e {{ embedux_tmp }}/.done_crossdev_run
-      register: crossdev_check
-      ignore_errors: True
+  roles:
+    - role: qemu_prepare
+    - role: qemu_run
+    - role: crossdev_check
 
-- hosts: qemu
+- hosts: target
   roles:
     - role: crossdev_getargs
       when: hostvars["localhost"]["crossdev_check"]|failed

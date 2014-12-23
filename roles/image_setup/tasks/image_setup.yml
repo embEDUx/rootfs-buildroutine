@@ -16,15 +16,15 @@
     state=directory
     path={{ item }}
   with_items:
-    - "{{ embedux_tmp }}/rootfs.btrfs.mnt"
+    - "{{ base_mount_dir }}"
 
 - include: "{{ playbook_dir }}/roles/common/tasks/mount_image.yml"
 
 - name: Create btrfs subvolume for stage3 
-  shell: sudo btrfs subvolume create {{ embedux_tmp }}/rootfs.btrfs.mnt/stage3
+  shell: sudo btrfs subvolume create {{ stage3_dir }}
 
 - name: Extract the contents of the stage3 container
-  shell: sudo docker save {{ stage3_image.stdout }} | tar --to-stdout -x --strip-components=1 -f - --wildcards */layer.tar | sudo tar -xp -f - -C {{ embedux_tmp }}/rootfs.btrfs.mnt/stage3/
+  shell: sudo docker save {{ stage3_image.stdout }} | tar --to-stdout -x --strip-components=1 -f - --wildcards */layer.tar | sudo tar -xp -f - -C {{ stage3_dir }}/
 
 - name: Mark as set up
   file: >

@@ -1,0 +1,8 @@
+---
+allow_duplicates: True
+dependencies:
+  roles:
+    - role: proot_stop
+      when: native == True
+    - role: qemu_stop
+      when: native == False

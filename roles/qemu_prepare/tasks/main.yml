@@ -1,8 +1,24 @@
 ---
-- name: Check if the image has already been prepared for qemu
-  shell: test -e {{ embedux_tmp }}/.done_qemu_prepare
-  register: prepared
-  ignore_errors: True
+- name: Download files needed to run qemu
+  get_url: >
+    dest={{ playbook_dir }}/files/{{ item.key }}
+    url={{ item.value }}
+  with_dict: downloads[target_arch_short]
 
-- include: qemu_prepare.yml
-  when: prepared|failed
+- name: Unpack linux kernel
+  unarchive: >
+    copy=no
+    src={{ playbook_dir }}/files/linux.tar
+    dest={{ qemu_kernel_dir }}/
+
+- name: Synchronize files
+  synchronize: >
+    src={{ playbook_dir }}/files/qemu_prepare/ dest={{ playbook_dir}}/files/target_prepare
+    
+- name: Set qemu_emulator
+  set_fact:
+    qemu_emulator: "-q qemu-{{ target_arch_short }}"
+
+- name: Run qemu_prepare.sh inside rootfs
+  shell: sudo proot {{ qemu_emulator|default('') }} -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -b /tmp -0 -r {{ target_prepare_dir }}/ {{ embedux_tmp}}/files/qemu_prepare.sh
+

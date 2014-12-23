@@ -1,0 +1,9 @@
+---
+- name: Check if the target already has been prepared
+  shell: test -e {{ embedux_tmp }}/.done_target_prepare
+  register: done_target_prepare
+  ignore_errors: True
+
+- include: target_prepare.yml
+  when: done_target_prepare|failed
+

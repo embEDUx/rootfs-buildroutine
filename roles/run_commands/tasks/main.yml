@@ -1,0 +1,4 @@
+---
+- name: Run specified commands
+  shell: "{{ item }}"
+  with_items: commands

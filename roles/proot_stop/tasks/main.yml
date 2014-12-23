@@ -1,0 +1,9 @@
+---
+- name: Check if an SSHd from proot is running
+  shell: pgrep -f "sshd -4 -p 2222"
+  register: check_proot_sshd
+  ignore_errors: True
+
+- name: Kill existing SSHds
+  shell: pkill -9 -f "sshd -4 -p 2222"
+  when: check_proot_sshd|success

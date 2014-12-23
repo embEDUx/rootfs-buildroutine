@@ -4,7 +4,6 @@
     path={{ pwd }}/output
     state=directory
 
-
 - name: Estimate rootfs filename
   shell: "cd {{ pwd }} && echo $(git rev-parse --abbrev-ref HEAD)_$(date '+%Y%m%d%H%M%S')_$(git rev-parse --short HEAD)_rootfs.tbz2"
   register: rootfs_filename
@@ -16,7 +15,5 @@
       --exclude '/root/*' \
       --exclude='/home/*' \
       --exclude='/etc/ssh/*key*' \
-      -C {{ embedux_tmp }}/rootfs.btrfs.mnt/copyoverlay/ ."
+      -C {{ target_run_dir }} ."
 
-- include: "{{ playbook_dir }}/roles/common/tasks/btrfs_balance.yml"
-  path: "{{ embedux_tmp }}/rootfs.btrfs.mnt/"

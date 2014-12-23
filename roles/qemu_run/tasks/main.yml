@@ -1,16 +1,4 @@
 ---
-- name: Check if a snapshot already exists
-  shell: test -e {{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_run
-  register: snapshot_exists
-  ignore_errors: True
-
-- name: Remove the last snapshot 
-  shell: sudo btrfs subvolume delete {{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_run
-  when: snapshot_exists|success
-
-- name: Create a btrfs snapshot for the prepare step
-  shell: sudo btrfs subvolume snapshot {{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_prepare {{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_run
-
 - include: "{{ playbook_dir }}/roles/common/tasks/umount_image.yml"
 
 - name: Run emulator in background

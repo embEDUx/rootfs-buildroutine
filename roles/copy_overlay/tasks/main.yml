@@ -7,5 +7,5 @@
 - name: Copy overlay
   copy: >
     src={{ pwd }}/{{ overlay }}/
-    dest={{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_run/
+    dest={{ embedux_tmp }}/rootfs.btrfs.mnt/target_run/
   when: overlay_exists|success

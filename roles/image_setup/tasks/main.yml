@@ -1,8 +1,8 @@
 ---
 - name: Check if the image has already been set up
   shell: test -e {{ embedux_tmp }}/.done_image_setup
-  register: prepared
+  register: done_setup
   ignore_errors: True
 
 - include: image_setup.yml
-  when: prepared|failed
+  when: done_setup|failed
