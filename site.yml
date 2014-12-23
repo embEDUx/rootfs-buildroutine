@@ -4,7 +4,7 @@
   tasks:
     - name: Estimate wether to produce a native image or not
       set_fact:
-        native: {{ native_arch == target_arch }}
+        native: "{{ native_arch == target_arch }}"
 
 - hosts: localhost
   roles:
