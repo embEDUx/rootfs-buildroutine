@@ -6,9 +6,10 @@
 
 - name: Pack the rootfs
   shell: >
-    "sudo tar -cjtpf {{ pwd }}/output/$(git rev-parse --abbrev-ref HEAD)_$(date '+%Y%m%d%H%M%S')_$(git rev-parse --short HEAD)_rootfs.tbz2 \
-      --exclude '/usr/portage/distfiles/*' \
-      --exclude '/var/tmp/*' --exclude '/root/*' \
-      --exclude '/home/*' \
-      --exclude '/etc/ssh/*key*' \
+    "sudo tar -cjp -f {{ pwd }}/output/$(git rev-parse --abbrev-ref HEAD)_$(date '+%Y%m%d%H%M%S')_$(git rev-parse --short HEAD)_rootfs.tbz2 \
+      --exclude='/usr/portage/distfiles/*' \
+      --exclude='/var/tmp/*' \
+      --exclude '/root/*' \
+      --exclude='/home/*' \
+      --exclude='/etc/ssh/*key*' \
       -C {{ embedux_tmp }}/rootfs.btrfs.mnt/copyoverlay/ ."
