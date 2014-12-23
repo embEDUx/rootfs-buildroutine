@@ -6,7 +6,7 @@ qemu_imagefile: "{{ embedux_tmp}}/rootfs.btrfs.img"
 qemu_pidfile:  "{{ embedux_tmp}}/qemu.pid"
 
 base_mount_dir: "{{ embedux_tmp }}/rootfs.btrfs.mnt"
-stage3_dir: {{ embedux_tmp }}/rootfs.btrfs.mnt/stage3"
+stage3_dir: "{{ embedux_tmp }}/rootfs.btrfs.mnt/stage3"
 target_prepare_dir: "{{ embedux_tmp }}/rootfs.btrfs.mnt/target_prepare"
 target_run_dir: "{{ embedux_tmp }}/rootfs.btrfs.mnt/target_run"
 pkg_dir: "{{ embedux_tmp }}/rootfs.btrfs.mnt/pkgdir"
