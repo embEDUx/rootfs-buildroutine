@@ -15,9 +15,6 @@
   synchronize: >
     src={{ playbook_dir }}/files/qemu_prepare/ dest={{ playbook_dir}}/files/target_prepare
     
-- name: Set qemu_emulator
-  set_fact:
-    qemu_emulator: "-q qemu-{{ target_arch_short }}"
 
 - name: Run qemu_prepare.sh inside rootfs
   shell: sudo proot {{ qemu_emulator|default('') }} -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -b /tmp -0 -r {{ target_prepare_dir }}/ {{ embedux_tmp}}/files/qemu_prepare.sh
