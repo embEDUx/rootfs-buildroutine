@@ -2,6 +2,6 @@
 allow_duplicates: yes
 dependencies:
   - role: proot_stop
-    when: native == True
+    when: native == True or native == "True"
   - role: qemu_stop
-    when: native == False
+    when: native == False or native == "False"
