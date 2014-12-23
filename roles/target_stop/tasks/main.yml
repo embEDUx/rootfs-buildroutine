@@ -2,4 +2,3 @@
 - name: Debug var
   debug: >
     msg=Native is {{ native }}
-  when: native == "False"

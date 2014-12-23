@@ -1,5 +1,7 @@
 ---
 allow_duplicates: yes
 dependencies:
-  - { role: proot_stop, when: "native == True" }
-  - { role: qemu_stop, when: "native == False" }
+  - role: proot_stop
+    when: native == "True"
+  - role: qemu_stop
+    when: native == "False"

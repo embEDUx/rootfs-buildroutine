@@ -17,9 +17,9 @@
 
 # Run phase
 - include: "{{ playbook_dir }}/qemu_prepare_run_crossdev.yml"
-  when: native == False
+  when: native == "False"
 - include: "{{ playbook_dir }}/proot_prepare_and_run.yml"
-  when: native == True
+  when: native == "True"
 
 # Pre-Install and Install phase
 - hosts: localhost
