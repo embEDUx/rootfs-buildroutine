@@ -5,8 +5,7 @@
     state=directory
 
 - name: Pack the rootfs
-  shell: >
-    "sudo tar -cjp -f {{ pwd }}/output/$(git rev-parse --abbrev-ref HEAD)_$(date '+%Y%m%d%H%M%S')_$(git rev-parse --short HEAD)_rootfs.tbz2 \
+  shell: "sudo tar -cjp -f {{ pwd }}/output/$(git rev-parse --abbrev-ref HEAD)_$(date '+%Y%m%d%H%M%S')_$(git rev-parse --short HEAD)_rootfs.tbz2 \
       --exclude='/usr/portage/distfiles/*' \
       --exclude='/var/tmp/*' \
       --exclude '/root/*' \

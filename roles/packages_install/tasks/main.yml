@@ -1,4 +1,14 @@
 ---
+- name: Run pre-install commands
+  shell: "{{ item }}"
+  with_items: pre_install_commands
+  when: pre_install_commands is defined
+
 - name: Install configured packages
   include: "{{ playbook_dir }}/roles/common/tasks/emerge_pkg.yml"
   atom: "{{ packages_list|join(' ') }}"
+
+- name: Run post-install commands
+  shell: "{{ item }}"
+  with_items: post_install_commands
+  when: post_install_commands is defined
