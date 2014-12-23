@@ -1,4 +1,11 @@
 ---
+# Estimate if we're building native
+- hosts: localhost
+  tasks:
+    - name: Set native flag
+      set_fact:
+        native: "{{ native_arch == target_arch }}"
+
 # Setup and prepare phase
 - hosts: localhost
   roles:
