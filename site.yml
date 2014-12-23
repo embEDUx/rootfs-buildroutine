@@ -15,11 +15,12 @@
     - target_prepare
     - target_rundir_init
 
-# Run phase
+# Run phase cross case
 - include: "{{ playbook_dir }}/qemu_prepare_run_crossdev.yml"
-  when: hostvars["localhost"]["native"] == "False"
+
+
+# Run phase native case
 - include: "{{ playbook_dir }}/proot_prepare_and_run.yml"
-  when: hostvars["localhost"]["native"] == "True"
 
 # Pre-Install and Install phase
 - hosts: localhost

@@ -2,16 +2,20 @@
 - hosts: localhost
   roles:
     - role: qemu_prepare
+      when: native == "False"
     - role: qemu_run
+      when: native == "False"
     - role: crossdev_check
+      when: native == "False"
 
 - hosts: target
   roles:
     - role: crossdev_getargs
-      when: hostvars["localhost"]["crossdev_check"]|failed
+      when: hostvars["localhost"]["native"] == "False" and hostvars["localhost"]["crossdev_check"]|failed
 
 - hosts: localhost
   roles:
     - role: crossdev_run
-      when: crossdev_check|failed
-    - distcc_run
+      when: native == "False" and crossdev_check|failed
+    - role: distcc_run
+      when: native == "False"
