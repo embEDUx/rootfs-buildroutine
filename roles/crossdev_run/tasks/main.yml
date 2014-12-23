@@ -1,6 +1,6 @@
 ---
 - name: Generate a cross toolchain
-  shell: sudo crossdev {{ hostvars["qemu"]["crossdev_args"] }}
+  shell: sudo crossdev {{ hostvars["target"]["crossdev_args"] }}
 
 - name: Mark crossdev as run
   file: >
