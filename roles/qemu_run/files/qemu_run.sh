@@ -21,7 +21,7 @@ QEMU_AUDIO_DRV=none qemu-system-${QEMU_ARCH} \
   -daemonize \
   -pidfile ${PIDFILE} \
   -kernel ${KERNEL_DIR}/zImage \
-  -append "root=/dev/vda rw rootflags=subvol=qemu_run console=ttyAMA0" \
+  -append "root=/dev/vda rw rootflags=subvol=target_run console=ttyAMA0" \
   -net user \
   -netdev user,id=vnet0 \
   -redir tcp:2222::22 \
