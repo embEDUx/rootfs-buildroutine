@@ -1,4 +1,6 @@
 ---
+- include: "{{ playbook_dir }}/roles/common/tasks/mount_image.yml"
+
 - name: Check if a snapshot already exists
   shell: test -e {{ target_run_dir }}
   register: snapshot_exists
