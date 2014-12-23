@@ -1,0 +1,11 @@
+---
+- name: check if the overlay directory exists
+  shell: test -d {{ pwd }}/{{ overlay }}
+  register: overlay_exists
+  ignore_errors: True
+
+- name: Copy overlay
+  copy: >
+    src={{ pwd }}/{{ overlay }}/
+    dest={{ embedux_tmp }}/rootfs.btrfs.mnt/qemu_run/
+  when: overlay_exists|success
