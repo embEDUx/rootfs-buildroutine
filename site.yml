@@ -5,6 +5,9 @@
     - name: Set native flag
       set_fact:
         native: "{{ native_arch == target_arch }}"
+      set_fact:
+        qemu_emulator: "-q qemu-{{ target_arch_short }}"
+        when: native == "False"
 
 # Setup and prepare phase
 - hosts: localhost
