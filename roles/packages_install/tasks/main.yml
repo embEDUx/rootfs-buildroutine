@@ -1,4 +1,8 @@
 ---
+- name: Copy pre_install overlay
+  include: copy_overlay.yml
+  overlay: pre_install_overlay
+
 - name: Run pre-install commands
   shell: "{{ item }}"
   with_items: pre_install_commands
@@ -7,6 +11,10 @@
 - name: Install configured packages
   include: "{{ playbook_dir }}/roles/common/tasks/emerge_pkg.yml"
   atom: "{{ packages_list|join(' ') }}"
+
+- name: Copy post_install overlay
+  include: copy_overlay.yml
+  overlay: post_install_overlay
 
 - name: Run post-install commands
   shell: "{{ item }}"

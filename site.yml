@@ -13,11 +13,10 @@
 - hosts: qemu
   roles:
     - packages_prepare
-#    - packages_flags
-#    - packages_install
+    - packages_flags
+    - packages_install
 
 - hosts: localhost
   roles:
     - qemu_stop
-    - rootfs_copyoverlay
     - rootfs_pack
