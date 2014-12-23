@@ -8,7 +8,7 @@
 
 - hosts: localhost
   roles:
-    - eval_vars
+    - eval_variables
     - image_setup
     - target_stop
     - target_prepare
@@ -27,7 +27,7 @@
       overlay: pre_install_overlay
 - hosts: target
   roles:
-    - eval_vars
+    - eval_variables
     - packages_flags
     - role: run_commands
       commands: "{{ pre_install_commands }}"
