@@ -1,5 +1,5 @@
 ---
 - name: Debug var
   debug: >
-    msg={{ native }}/
+    msg=Native is {{ native }}
   when: native == "False"
