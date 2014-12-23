@@ -13,3 +13,6 @@
       --exclude='/home/*' \
       --exclude='/etc/ssh/*key*' \
       -C {{ embedux_tmp }}/rootfs.btrfs.mnt/copyoverlay/ ."
+
+- include: "{{ playbook_dir }}/roles/common/tasks/btrfs_balance.yml"
+  path: "{{ embedux_tmp }}/rootfs.btrfs.mnt/"

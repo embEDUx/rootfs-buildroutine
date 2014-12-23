@@ -1,0 +1,3 @@
+---
+- name: Balance btrfs filesystem
+  shell: sudo btrfs filesystem balance {{ path }}
