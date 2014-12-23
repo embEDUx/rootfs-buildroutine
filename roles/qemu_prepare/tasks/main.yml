@@ -13,7 +13,8 @@
 
 - name: Synchronize files
   synchronize: >
-    src={{ playbook_dir }}/files/qemu_prepare/ dest={{ playbook_dir}}/files/target_prepare
+    src={{ playbook_dir }}/files/qemu_prepare/ dest={{ target_prepare_dir }}{{ embedux_tmp }}/files
+    archive=no delete=no checksum=yes recursive=yes
     
 
 - name: Run qemu_prepare.sh inside rootfs
