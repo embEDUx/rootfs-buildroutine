@@ -2,9 +2,10 @@
 # Estimate if we're building native
 - hosts: localhost
   tasks:
-    - name: Set native flag
+    - name: Set native fact
       set_fact:
         native: "{{ native_arch == target_arch }}"
+    - name: set qemu_emulator fact
       set_fact:
         qemu_emulator: "-q qemu-{{ target_arch_short }}"
       when: native == "False"
