@@ -1,0 +1,3 @@
+---
+- include: "{{ playbook_dir }}/roles/common/tasks/btrfs_balance.yml"
+  path: "{{ base_mount_dir }}/"
