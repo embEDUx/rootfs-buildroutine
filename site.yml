@@ -5,6 +5,10 @@
     - name: Estimate wether to produce a native image or not
       set_fact:
         native: "{{ native_arch == target_arch }}"
+    - name: Set qemu_emulator
+      set_fact:
+        qemu_emulator: "-q qemu-{{ target_arch_short }}"
+        when: native == False
 
 - hosts: localhost
   roles:
@@ -51,6 +55,3 @@
     - target_stop
     - rootfs_pack
     - image_maintain
-  tasks:
-    - include: "{{ playbook_dir }}/roles/common/tasks/btrfs_balance.yml"
-      path: "{{ base_mount_dir }}/"
