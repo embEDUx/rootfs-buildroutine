@@ -1,4 +1,9 @@
 ---
+- name: Set qemu_emulator
+  set_fact:
+    qemu_emulator: "-q qemu-{{ target_arch_short }}"
+    when: native == False
+
 - name: Read the provided configuration
   include_vars: "{{ pwd }}/configuration.yml"
 
