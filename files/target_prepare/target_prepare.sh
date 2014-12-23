@@ -15,7 +15,7 @@ echo de_DE.UTF-8 UTF-8 >> /etc/locale.gen
 # SSH
 mkdir /root/.ssh/ -p
 chmod 700 /root/.ssh
-cp qemu.id.pub /root/.ssh/authorized_keys
+cp target.id.pub /root/.ssh/authorized_keys
 chmod 600 /root/.ssh/authorized_keys
 /sbin/rc-update add sshd default
 cp send_signal_from_vm.py /etc/local.d/send_signal_from_vm.py.start
