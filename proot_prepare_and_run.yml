@@ -2,4 +2,4 @@
 - hosts: localhost
   roles:
     - role: proot_run
-      when: native = "True"
+      when: native == "True"
