@@ -3,4 +3,4 @@ ansible_connection: ssh
 ansible_ssh_host: 127.0.0.1
 ansible_ssh_port: 2222
 ansible_ssh_user: root
-ansible_ssh_private_key_file: /var/tmp/embedux/qemu_prepare/ssh_creds/target.id
+ansible_ssh_private_key_file: /var/tmp/embedux/target_prepare/ssh_creds/target.id
