@@ -34,4 +34,7 @@ for cmd in c++ g++ gcc cc; do
     ln -s ${WRAPPER_BASE}wrapper /usr/lib/distcc/bin/${cmd}
 done
 
+# Script to notify the waiting host
+cp send_signal_from_vm.py /etc/local.d/send_signal_from_vm.py.start
+
 popd
