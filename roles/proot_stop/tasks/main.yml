@@ -8,3 +8,12 @@
   shell: sudo pkill -9 -f "sshd -4 -p 2222"
   when: check_proot_sshd|success
   ignore_errors: True
+
+- name: Check if an SSHd from proot is running
+  shell: pgrep -f "sshd -4 -p 2222"
+  register: check_proot_sshd2
+  ignore_errors: True
+
+- name: Kill existing SSHds
+  shell: sudo pkill -9 -f "sshd -4 -p 2222"
+  when: check_proot_sshd2|success
