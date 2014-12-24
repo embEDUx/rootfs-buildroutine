@@ -1,21 +1,27 @@
 ---
 - hosts: localhost
+  tasks:
+    - name: add localhost to cross group
+      add_host: name=localhost group=localhost_cross
+      when: native == "False"
+    - name: add target to cross group
+      add_host: name=target group=target_cross
+      when: native == "False"
+
+
+- hosts: localhost_cross
   roles:
     - role: qemu_prepare
-      when: native == "False"
     - role: qemu_run
-      when: native == "False"
     - role: crossdev_check
-      when: native == "False"
 
-- hosts: target
+- hosts: target_cross
   roles:
     - role: crossdev_getargs
-      when: hostvars["localhost"]["native"] == "False" and hostvars["localhost"]["crossdev_check"]|failed
+      when: hostvars["localhost"]["crossdev_check"]|failed
 
-- hosts: localhost
+- hosts: localhost_cross
   roles:
     - role: crossdev_run
-      when: native == "False" and crossdev_check|failed
+      when: crossdev_check|failed
     - role: distcc_run
-      when: native == "False"
