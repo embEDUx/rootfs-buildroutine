@@ -10,7 +10,7 @@ MESSAGE = u"I'm alive"
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 s.bind((TCP_IP, TCP_PORT))
 s.listen(1)
-s.settimeout(360)
+s.settimeout(1800)
 
 print("Waiting for the VM")
 start = datetime.now()
