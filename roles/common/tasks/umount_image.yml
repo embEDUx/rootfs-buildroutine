@@ -5,4 +5,4 @@
   
 - name: Unmount rootfs image
   shell: sudo umount {{ base_mount_dir }}
-  when: mounted.stdout == "1"
+  when: mounted.stdout != "0"
