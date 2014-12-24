@@ -2,7 +2,9 @@
 - name: Set the global flags
   shell: flaggie {{ item }}
   with_items: global_flags
+  when: global_flags is defined
 
 - name: Set the package flags
   shell: flaggie {{ item }}
   with_items: package_flags
+  when: package_flags is defined
