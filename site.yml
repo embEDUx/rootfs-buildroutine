@@ -9,18 +9,15 @@
       set_fact:
         qemu_emulator: "-q qemu-{{ target_arch_short }}"
       when: native == "False"
-    - name: Debug
-      debug: msg={{ target_arch_short }}
-
 
 # Setup and prepare phase
 - hosts: localhost
   roles:
+    - check_overlays
     - eval_variables
     - image_setup
     - target_stop
     - target_prepare
-    - target_rundir_init
 
 # Run phase cross case
 - include: "{{ playbook_dir }}/qemu_prepare_run_crossdev.yml"
@@ -30,12 +27,11 @@
 - include: "{{ playbook_dir }}/proot_prepare_and_run.yml"
 
 # Pre-Install and Install phase
-- hosts: localhost
+- hosts: target
   roles:
     - role: copy_overlay
       overlay: pre_install_overlay
-- hosts: target
-  roles:
+      when: pre_install_overlay_check|success
     - eval_variables
     - packages_flags
     - role: run_commands
@@ -44,12 +40,11 @@
     - role: packages_install
 
 # Post-Install phase
-- hosts: localhost
+- hosts: target
   roles:
     - role: copy_overlay
       overlay: post_install_overlay
-- hosts: target
-  roles:
+      when: post_install_overlay_check|success
     - role: run_commands
       commands: "{{ post_install_commands }}"
       when: post_install_commands is defined

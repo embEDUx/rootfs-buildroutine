@@ -1,0 +1,10 @@
+---
+- name: check if the pre install overlay directory exists
+  shell: test -d {{ pwd }}/pre_install_overlay
+  register: pre_install_overlay_check
+  ignore_errors: True
+
+- name: check if the post install overlay directory exists
+  shell: test -d {{ pwd }}/post_install_overlay
+  register: post_install_overlay_check
+  ignore_errors: True
