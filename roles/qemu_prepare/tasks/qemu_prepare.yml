@@ -3,7 +3,8 @@
   get_url: >
     dest={{ playbook_dir }}/files/{{ item.key }}
     url={{ item.value }}
-  with_dict: downloads[target_arch_short]|default({})
+  with_dict: downloads[target_arch_short]
+  when: target_arch_short in downloads
 
 - name: Unpack linux kernel
   unarchive: >
