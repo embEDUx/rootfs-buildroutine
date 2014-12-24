@@ -15,5 +15,6 @@
       --exclude '/root/*' \
       --exclude='/home/*' \
       --exclude='/etc/ssh/*key*' \
+      --exclude='/mnt/*' \
       -C {{ target_run_dir }} ."
 
