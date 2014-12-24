@@ -5,5 +5,5 @@
   ignore_errors: True
 
 - name: Kill existing SSHds
-  shell: pkill -9 -f "sshd -4 -p 2222"
+  shell: sudo pkill -9 -f "sshd -4 -p 2222"
   when: check_proot_sshd|success
