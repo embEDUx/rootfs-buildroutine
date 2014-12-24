@@ -9,7 +9,7 @@
   shell: "sudo proot {{ qemu_emulator|default('') }} -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -b /tmp -0 -r {{ target_run_dir }}/ ssh-keygen -A"
 
 - name: Start SSHd in target directory
-  shell: "sudo proot {{ qemu_emulator|default('') }} -b {{ base_mount_dir }}/pkgdir:/mnt/pkgdir -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -b /tmp -0 -r {{ target_run_dir }}/ -b /usr/src sshd -4 -p 2222"
+  shell: "sudo proot {{ qemu_emulator|default('') }} -b {{ pkg_dir }}:/mnt/pkgdir -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -b /tmp -0 -r {{ target_run_dir }}/ -b /usr/src sshd -4 -p 2222"
   async: 999999999999
   poll: 0
 
