@@ -10,6 +10,15 @@ qemu_emulator: ""
 qemu_imagefile: "{{ embedux_tmp}}/rootfs.btrfs.img"
 qemu_pidfile:  "{{ embedux_tmp}}/qemu.pid"
 
+qemu_downloads:
+  arm:
+    linux.tar: http://moe.in.htwg-konstanz.de:8010/linux/qemu-virt-arm/latest.kernel
+    qemu_prepare/linux.config: http://moe.in.htwg-konstanz.de:8010/linux/qemu-virt-arm/latest.config
+    qemu_prepare/linux-rootfs-addon.tar: http://moe.in.htwg-konstanz.de:8010/linux/qemu-virt-arm/latest.root-addon
+  amd64: {}
+
+qemu_kernel_dir: "{{ embedux_tmp }}"
+
 base_mount_dir: "{{ embedux_tmp }}/rootfs.btrfs.mnt"
 stage3_dir: "{{ embedux_tmp }}/rootfs.btrfs.mnt/stage3"
 target_prepare_dir: "{{ embedux_tmp }}/rootfs.btrfs.mnt/target_prepare"
