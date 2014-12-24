@@ -11,9 +11,10 @@
 
 - hosts: localhost_cross
   roles:
-    - role: qemu_prepare
-    - role: qemu_run
-    - role: crossdev_check
+    - qemu_prepare
+    - target_rundir_init
+    - qemu_run
+    - crossdev_check
 
 - hosts: target_cross
   roles:
@@ -24,4 +25,4 @@
   roles:
     - role: crossdev_run
       when: crossdev_check|failed
-    - role: distcc_run
+    - distcc_run

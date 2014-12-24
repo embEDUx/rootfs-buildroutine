@@ -16,7 +16,6 @@
     src={{ playbook_dir }}/files/qemu_prepare/ dest={{ target_prepare_dir }}{{ embedux_tmp }}/files
     archive=no delete=no checksum=yes recursive=yes
     
-
 - name: Run qemu_prepare.sh inside rootfs
   shell: sudo proot {{ qemu_emulator|default('') }} -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -b /tmp -0 -r {{ target_prepare_dir }}/ {{ embedux_tmp}}/files/qemu_prepare.sh
 
