@@ -9,6 +9,9 @@
       set_fact:
         qemu_emulator: "-q qemu-{{ target_arch_short }}"
       when: native == "False"
+    - name: Debug
+      debug: msg={{ target_arch_short }}/{{ target_arch_short in downloads }}/{{ downloads }}
+
 
 # Setup and prepare phase
 - hosts: localhost
