@@ -12,3 +12,10 @@
   shell: "sudo proot {{ qemu_emulator|default('') }} -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -b /tmp -0 -r {{ target_prepare_dir }}/ -b /usr/src sshd -4 -p 2222"
   async: 999999999999
   poll: 0
+
+- name: Wait for the SSHd to be reachable
+  wait_for:
+    port: 2222
+    timeout: 30
+    search_regex: ".*SSH.*"
+  register: reachable
