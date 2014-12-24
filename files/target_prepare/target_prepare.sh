@@ -19,6 +19,8 @@ cp target.id.pub /root/.ssh/authorized_keys
 chmod 600 /root/.ssh/authorized_keys
 /sbin/rc-update add sshd default
 
+# Python 2.7 needed by ansible
+eselect python set python2.7
 
 # Portage
 emerge --sync
