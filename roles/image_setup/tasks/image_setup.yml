@@ -9,7 +9,7 @@
   shell: qemu-img create -f raw {{ embedux_tmp }}/rootfs.btrfs.img 16G
 
 - name: Format image file with btrfs
-  shell: mkfs.btrfs {{ embedux_tmp }}/rootfs.btrfs.img
+  shell: mkfs.btrfs --mixed {{ embedux_tmp }}/rootfs.btrfs.img
 
 - name: Create directories
   file: >
