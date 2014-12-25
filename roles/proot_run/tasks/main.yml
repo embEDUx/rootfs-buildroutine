@@ -9,7 +9,7 @@
   shell: "sudo proot -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -r {{ target_run_dir }}/ ssh-keygen -A"
 
 - name: Start SSHd in target directory
-  shell: "sudo proot -b {{ pkg_dir }}:/mnt/pkgdir -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -r {{ target_run_dir }}/ -b /usr/src sshd -4 -p 2222"
+  shell: "sudo proot -b {{ pkg_dir }}:/mnt/pkgdir -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -r {{ target_run_dir }}/ -b /usr/src sshd -4 -p 2222 &"
   async: 0
   poll: 0
   ignore_errors: True
