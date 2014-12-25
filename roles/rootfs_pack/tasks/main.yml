@@ -10,10 +10,10 @@
 
 - name: Pack the rootfs
   shell: "sudo tar -cjp -f {{ pwd }}/output/{{ rootfs_filename.stdout }} \
-      -C {{ target_run_dir }} .\
+      -C {{ target_run_dir }} . \
       --exclude='./usr/portage/distfiles/*' \
       --exclude='./var/tmp/*' \
-      --exclude './root/*' \
+      --exclude='./root/*' \
       --exclude='./home/*' \
       --exclude='./etc/ssh/*key*' \
       --exclude='./mnt/*'"
