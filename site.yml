@@ -54,4 +54,3 @@
   roles:
     - target_stop
     - rootfs_pack
-    - image_maintain
