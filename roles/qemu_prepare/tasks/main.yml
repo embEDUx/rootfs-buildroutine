@@ -4,17 +4,5 @@
   register: done_qemu_prepare
   ignore_errors: True
 
-- name: Download/Update files needed to run qemu
-  get_url: >
-    dest={{ playbook_dir }}/files/{{ item.key }}
-    url={{ item.value }}
-  with_dict: qemu_downloads[target_arch_short]
-
-- name: Unpack linux kernel
-  unarchive: >
-    copy=no
-    src={{ playbook_dir }}/files/linux.tar
-    dest={{ qemu_kernel_dir }}/
-
 - include: qemu_prepare.yml
   when: done_qemu_prepare|failed
