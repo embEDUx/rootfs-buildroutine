@@ -16,5 +16,6 @@
       --exclude='./root/*' \
       --exclude='./home/*' \
       --exclude='./etc/ssh/*key*' \
+      --exclude='./etc/local.d/send_signal_from_vm.py.start' \
       --exclude='./mnt/*'"
 
