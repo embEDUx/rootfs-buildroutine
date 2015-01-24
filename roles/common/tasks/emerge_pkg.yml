@@ -1,6 +1,6 @@
 ---
 - name: emerge using autounmask
-  shell: emerge --autounmask-write=y -nkb {{ atom }}
+  shell: emerge --autounmask-write=y -Nnkb {{ atom }}
   register: autounmasked
   ignore_errors: True
 
@@ -9,5 +9,5 @@
   when: autounmasked|failed
 
 - name: emerge regularely
-  shell: emerge -nkb {{ atom }}
+  shell: emerge -Nnkb {{ atom }}
   when: autounmasked|failed
