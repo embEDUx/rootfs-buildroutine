@@ -23,7 +23,7 @@ chmod 600 /root/.ssh/authorized_keys
 eselect python set python2.7
 
 # Portage
-mkdir -p /usr/portage
+mkdir -p /usr/portage/distfiles
 chown -R portage:portage /usr/portage
 emerge --sync
 emerge gentoolkit flaggie
