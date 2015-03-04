@@ -26,11 +26,12 @@ eselect python set python2.7
 mkdir -p /usr/portage/distfiles
 chown -R portage:portage /usr/portage
 emerge --sync
+chown -R portage:portage /usr/portage
 emerge gentoolkit flaggie
 
 # Prepare binary packages
 mkdir /mnt/pkgdir
-chown portage:portage /mnt/pkgdir
+chown -R portage:portage /mnt/pkgdir
 echo PKGDIR=\"\/mnt/pkgdir\" >> /etc/portage/make.conf
 
 popd
