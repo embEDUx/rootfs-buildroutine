@@ -5,15 +5,15 @@
     state=directory
 
 - name: Produce timestamp
-  shell: "$(date '+%Y%m%d%H%M%S')"
+  shell: "date '+%Y%m%d%H%M%S'"
   register: timestamp
 
 - name: Estimate rootfs filename
-  shell: "cd {{ pwd }} && echo $(git rev-parse --abbrev-ref HEAD)_{{ timestamp }}_$(git rev-parse --short HEAD)_rootfs.tbz2"
+  shell: "cd {{ pwd }} && echo $(git rev-parse --abbrev-ref HEAD)_{{ timestamp.stdout }}_$(git rev-parse --short HEAD)_rootfs.tbz2"
   register: rootfs_filename
 
 - name: Estimate portage_snapshot_filename
-  shell: "cd {{ pwd }} && echo $(git rev-parse --abbrev-ref HEAD)_{{ timestamp }}_$(git rev-parse --short HEAD)_portage.tbz2"
+  shell: "cd {{ pwd }} && echo $(git rev-parse --abbrev-ref HEAD)_{{ timestamp.stdout }}_$(git rev-parse --short HEAD)_portage.tbz2"
   register: rootfs_filename
 
 - name: Pack the rootfs
