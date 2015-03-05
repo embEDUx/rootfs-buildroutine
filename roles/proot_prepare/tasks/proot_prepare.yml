@@ -1,0 +1,22 @@
+---
+- name: Remove existing SSH keys if any 
+  shell: "sudo proot -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -r {{ target_run_dir }}/ /bin/rm /etc/sshd/*key*"
+  ignore_errors: True
+
+- name: Generate new SSH keys
+  shell: "sudo proot -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -r {{ target_run_dir }}/ /usr/bin/ssh-keygen -A"
+
+- name: Copy the container's kernel sources
+  shell: "sudo proot -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -b /usr/src:/tmp/usrsrc -r {{ target_run_dir }}/ cp -a /tmp/usrsrc/* /usr/src/"
+
+- name: Retrieve installed gentoo-sources version
+  shell: "qlist -I gentoo-sources -v"
+  register: gentoo_sources
+
+- name: Install gentoo-sources according to container version
+  shell: 'sudo proot -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -r {{ target_run_dir }}/ bash -c "echo {{ gentoo_sources.stdout }} >> /etc/portage/package.provided"'
+
+- name: Mark as prepared
+  file: >
+    path={{ embedux_tmp }}/.done_proot_prepare
+    state=touch

@@ -1,0 +1,9 @@
+---
+- name: Check if the target already has been prepared
+  shell: test -e {{ embedux_tmp }}/.done_proot_prepare
+  register: done_proot_prepare
+  ignore_errors: True
+
+- include: proot_prepare.yml
+  when: done_proot_prepare|failed
+
