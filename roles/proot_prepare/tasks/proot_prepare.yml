@@ -3,7 +3,7 @@
   shell: "sudo proot -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -b /usr/src:/tmp/usrsrc -r {{ target_prepare_dir }}/ rsync -a /tmp/usrsrc/ /usr/src"
 
 - name: Retrieve installed gentoo-sources version
-  shell: "qlist -I gentoo-sources -v"
+  shell: "qlist -IC gentoo-sources -v"
   register: gentoo_sources
 
 - name: Mark gentoo-sources as provided in the target
