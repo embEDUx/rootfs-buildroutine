@@ -10,7 +10,7 @@
   shell: 'sudo proot -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -r {{ target_prepare_dir }}/ bash -c "mkdir -p /etc/portage/profile; echo {{ gentoo_sources.stdout }} >> /etc/portage/profile/package.provided"'
 
 - name: Build and install kernel modules in the target
-  shell: 'sudo proot -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -r {{ target_prepare_dir }}/ bash -c "pushd /usr/src/linux make olddefconfig; make -j8 modules; make modules_install; popd"'
+  shell: 'sudo proot -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -r {{ target_prepare_dir }}/ bash -c "pushd /usr/src/linux make olddefconfig; make modules_prepare; make modules_install; popd"'
 
 - name: Mark as prepared
   file: >
