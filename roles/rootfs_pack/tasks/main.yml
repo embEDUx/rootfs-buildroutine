@@ -14,7 +14,7 @@
 
 - name: Estimate portage_snapshot_filename
   shell: "cd {{ pwd }} && echo $(git rev-parse --abbrev-ref HEAD)_{{ timestamp.stdout }}_$(git rev-parse --short HEAD)_portage.tbz2"
-  register: rootfs_filename
+  register: portage_snapshot_filename
 
 - name: Pack the rootfs
   shell: "sudo tar -cjp -f {{ pwd }}/output/{{ rootfs_filename.stdout }} \
