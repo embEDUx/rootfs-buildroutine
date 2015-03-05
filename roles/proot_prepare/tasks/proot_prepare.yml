@@ -6,15 +6,18 @@
 - name: Generate new SSH keys
   shell: "sudo proot -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -r {{ target_run_dir }}/ /usr/bin/ssh-keygen -A"
 
-- name: Copy the container's kernel sources
+- name: Copy the container's kernel sources to the target
   shell: "sudo proot -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -b /usr/src:/tmp/usrsrc -r {{ target_run_dir }}/ cp -a /tmp/usrsrc/* /usr/src/"
 
 - name: Retrieve installed gentoo-sources version
   shell: "qlist -I gentoo-sources -v"
   register: gentoo_sources
 
-- name: Install gentoo-sources according to container version
+- name: Mark gentoo-sources as provided in the target
   shell: 'sudo proot -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -r {{ target_run_dir }}/ bash -c "echo {{ gentoo_sources.stdout }} >> /etc/portage/package.provided"'
+
+- name: Build and install kernel modules in the target
+  shell: 'sudo proot -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -r {{ target_run_dir }}/ bash -c "pushd /usr/src/linux make olddefconfig; make -j8 modules; make modules_install; popd"'
 
 - name: Mark as prepared
   file: >
