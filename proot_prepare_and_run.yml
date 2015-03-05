@@ -1,9 +1,9 @@
 ---
 - hosts: localhost
   roles:
-    - role: target_rundir_init
-      when: native == "True"
     - role: proot_prepare
+      when: native == "True"
+    - role: target_rundir_init
       when: native == "True"
     - role: proot_run
       when: native == "True"
