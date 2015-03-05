@@ -17,6 +17,9 @@ ln -sf /etc/init.d/net.lo /etc/init.d/net.eth0
 tar -xa -C / -f linux-rootfs-addon.tar
 ln -sf /usr/src/linux-* /usr/src/linux
 cp linux.config /usr/src/linux/.config
+pushd /usr/src/linux
+make modules_prepare
+popd 
 mkdir -p /etc/portage/profile
 echo sys-kernel/gentoo-sources-$(grep -oE '[0-9]+\.[0-9]{1,2}' linux.config) >> /etc/portage/profile/package.provided
 
