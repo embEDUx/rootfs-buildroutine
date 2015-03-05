@@ -18,7 +18,7 @@ tar -xa -C / -f linux-rootfs-addon.tar
 ln -sf /usr/src/linux-* /usr/src/linux
 cp linux.config /usr/src/linux/.config
 mkdir -p /etc/portage/profile
-echo virtual/linux-sources-1 >> /etc/portage/profile/package.provided
+echo sys-kernel/gentoo-sources-$(grep -oE '[0-9]+\.[0-9]{1,2}' linux.config) >> /etc/portage/profile/package.provided
 
 # Dist-CC
 emerge sys-devel/distcc
