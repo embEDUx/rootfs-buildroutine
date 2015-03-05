@@ -1,23 +1,16 @@
 ---
-- name: Remove existing SSH keys if any 
-  shell: "sudo proot -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -r {{ target_run_dir }}/ /bin/rm /etc/sshd/*key*"
-  ignore_errors: True
-
-- name: Generate new SSH keys
-  shell: "sudo proot -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -r {{ target_run_dir }}/ /usr/bin/ssh-keygen -A"
-
 - name: Copy the container's kernel sources to the target
-  shell: "sudo proot -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -b /usr/src:/tmp/usrsrc -r {{ target_run_dir }}/ cp -a /tmp/usrsrc/* /usr/src/"
+  shell: "sudo proot -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -b /usr/src:/tmp/usrsrc -r {{ target_prepare_dir }}/ rsync -a /tmp/usrsrc/ /usr/src"
 
 - name: Retrieve installed gentoo-sources version
   shell: "qlist -I gentoo-sources -v"
   register: gentoo_sources
 
 - name: Mark gentoo-sources as provided in the target
-  shell: 'sudo proot -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -r {{ target_run_dir }}/ bash -c "echo {{ gentoo_sources.stdout }} >> /etc/portage/package.provided"'
+  shell: 'sudo proot -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -r {{ target_prepare_dir }}/ bash -c "echo {{ gentoo_sources.stdout }} >> /etc/portage/package.provided"'
 
 - name: Build and install kernel modules in the target
-  shell: 'sudo proot -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -r {{ target_run_dir }}/ bash -c "pushd /usr/src/linux make olddefconfig; make -j8 modules; make modules_install; popd"'
+  shell: 'sudo proot -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -r {{ target_prepare_dir }}/ bash -c "pushd /usr/src/linux make olddefconfig; make -j8 modules; make modules_install; popd"'
 
 - name: Mark as prepared
   file: >
