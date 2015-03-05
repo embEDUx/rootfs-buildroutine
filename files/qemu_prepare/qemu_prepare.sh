@@ -17,6 +17,8 @@ ln -sf /etc/init.d/net.lo /etc/init.d/net.eth0
 tar -xa -C / -f linux-rootfs-addon.tar
 ln -sf /usr/src/linux-* /usr/src/linux
 cp linux.config /usr/src/linux/.config
+echo sys-kernel/gentoo-sources >> /etc/portage/package.provided
+echo virtual/linux-sources >> /etc/portage/package.provided
 
 # Dist-CC
 emerge sys-devel/distcc
