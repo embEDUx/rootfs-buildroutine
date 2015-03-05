@@ -7,7 +7,7 @@
   register: gentoo_sources
 
 - name: Mark virtual/linux-sources as provided in the target
-  shell: 'sudo proot -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -r {{ target_prepare_dir }}/ bash -c "echo virtual/linux-sources-1 >> /etc/portage/package.provided"'
+  shell: 'sudo proot -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -r {{ target_prepare_dir }}/ bash -c "mkdir -p /etc/portage/profile; echo virtual/linux-sources-1 >> /etc/portage/profile/package.provided"'
 
 - name: Build and install kernel modules in the target
   shell: 'sudo proot -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -r {{ target_prepare_dir }}/ bash -c "pushd /usr/src/linux make olddefconfig; make -j8 modules; make modules_install; popd"'
