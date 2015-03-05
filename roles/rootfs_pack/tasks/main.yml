@@ -4,15 +4,23 @@
     path={{ pwd }}/output
     state=directory
 
+- name: Produce timestamp
+  shell: "$(date '+%Y%m%d%H%M%S')"
+  register: timestamp
+
 - name: Estimate rootfs filename
-  shell: "cd {{ pwd }} && echo $(git rev-parse --abbrev-ref HEAD)_$(date '+%Y%m%d%H%M%S')_$(git rev-parse --short HEAD)_rootfs.tbz2"
+  shell: "cd {{ pwd }} && echo $(git rev-parse --abbrev-ref HEAD)_{{ timestamp }}_$(git rev-parse --short HEAD)_rootfs.tbz2"
+  register: rootfs_filename
+
+- name: Estimate portage_snapshot_filename
+  shell: "cd {{ pwd }} && echo $(git rev-parse --abbrev-ref HEAD)_{{ timestamp }}_$(git rev-parse --short HEAD)_portage.tbz2"
   register: rootfs_filename
 
 - name: Pack the rootfs
   shell: "sudo tar -cjp -f {{ pwd }}/output/{{ rootfs_filename.stdout }} \
       -C {{ target_run_dir }} . \
       --exclude='./usr/src/*' \
-      --exclude='./usr/portage/distfiles/*' \
+      --exclude='./usr/portage/*' \
       --exclude='./var/tmp/*' \
       --exclude='./root/*' \
       --exclude='./home/*' \
@@ -22,3 +30,7 @@
       --exclude='./lib*/modules/kernel/*' \
       --exclude='./mnt/*'"
 
+- name: Pack the portage snapshot
+  shell: "sudo tar -cjp -f {{ pwd }}/output/{{ portage_snapshot_filename.stdout }} \
+      -C {{ target_run_dir }} usr/portage \
+      --exclude='./usr/portage/distfiles/*'" 
