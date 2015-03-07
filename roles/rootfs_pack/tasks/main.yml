@@ -27,7 +27,9 @@
       --exclude='./etc/fstab' \
       --exclude='./etc/ssh/*key*' \
       --exclude='./etc/local.d/send_signal_from_vm.py.start' \
-      --exclude='./lib*/modules/kernel/*' \
+      --exclude='./lib32/modules/kernel/*' \
+      --exclude='./lib64/modules/kernel/*' \
+      --exclude='./lib/modules/kernel/*' \
       --exclude='./mnt/*'"
 
 - name: Pack the portage snapshot
