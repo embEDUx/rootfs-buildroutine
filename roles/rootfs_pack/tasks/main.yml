@@ -32,5 +32,5 @@
 
 - name: Pack the portage snapshot
   shell: "sudo tar -cjp -f {{ pwd }}/output/{{ portage_snapshot_filename.stdout }} \
-      -C {{ target_run_dir }} usr/portage \
+      -C {{ target_run_dir }} ./usr/portage \
       --exclude='./usr/portage/distfiles/*'" 
