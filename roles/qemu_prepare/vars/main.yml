@@ -1,7 +1,7 @@
 ---
 qemu_downloads:
   arm:
-    linux.tar: http://moe.in.htwg-konstanz.de:8010/linux/qemu-virt-arm/latest.kernel
-    qemu_prepare/linux.config: http://moe.in.htwg-konstanz.de:8010/linux/qemu-virt-arm/latest.config
-    qemu_prepare/linux-rootfs-addon.tar: http://moe.in.htwg-konstanz.de:8010/linux/qemu-virt-arm/latest.root-addon
+    linux.tar: "{{ buildmaster_url }}/linux/qemu-virt-arm/latest.kernel"
+    qemu_prepare/linux.config: "{{ buildmaster_url }}/linux/qemu-virt-arm/latest.config"
+    qemu_prepare/linux-rootfs-addon.tar: "{{ buildmaster_url }}/linux/qemu-virt-arm/latest.root-addon"
   amd64: {}
