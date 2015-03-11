@@ -1,2 +1,1 @@
-# rootfs-buildroutine
-The buildroutine that is used on for RootFS buildjobs
+The buildroutine that is used for RootFS buildjobs.

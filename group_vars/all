@@ -2,4 +2,4 @@
 embedux_tmp: /var/tmp/embedux
 files_dir: "{{ playbook_dir }}/files"
 pwd: "{{ lookup('env','PWD') }}"
-buildmaster_url: http://moe.in.htwg-konstanz.de:8010
+buildmaster_url: http://192.168.122.132:8010
